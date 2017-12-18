@@ -42,7 +42,7 @@ template.innerHTML = `
    }
    </style>
 
-   <div id="menu" draggable="true">
+   <div id="menu">
     <p id="text">Window</p>
     <img src="../image/close.png" class="close">
     <img src="../image/minimize.png" class="min">
@@ -58,6 +58,7 @@ class AppWindow extends window.HTMLElement {
     this._p = this.shadowRoot.querySelector('#text')
     this._menu = this.shadowRoot.querySelector('#menu')
     this._html = document.querySelector('html')
+    this._close = this.shadowRoot.querySelector('.close')
   }
 
   static get observedAttributes () {
@@ -72,29 +73,20 @@ class AppWindow extends window.HTMLElement {
     }
   }
   connectedCallback () {
-    // this._menu.addEventListener('dragstart', this._dragstart, false)
-    // this._menu.addEventListener('drag', this._drag, false)
-    // this._menu.addEventListener('dragend', this._dragend, false)
-    // this._menu.addEventListener('dragover', this._dragover, false)
-    // this._html.addEventListener('dragover', this._dragover, false)
-    // this._html.addEventListener('drop', this._drop, false)
+   // this._menu.addEventListener('dragstart', this._dragstart, false)
+   // this._html.addEventListener('dragover', this._dragover, false)
+   // this._html.addEventListener('drop', this._drop, false)
+    this._close.addEventListener('click', this._closeWindow)
   }
 
   disconnectedCallback () {}
 
-  _dragstart (ev) {
+  /* _dragstart (ev) {
     let style = window.getComputedStyle(ev.target, null)
     ev.dataTransfer.setData('text/plain',
     (parseInt(style.getPropertyValue('left'), 10) - ev.clientX) + ',' +
     (parseInt(style.getPropertyValue('top'), 10) - ev.clientY))
-    let menu = this._menu
-    console.log('Dragging started' + menu.style.left)
-  }
-  _drag () {
-    console.log('Dragging')
-  }
-  _dragend (ev) {
-    console.log('Dragging ended')
+    console.log('Dragging started' + this._p)
   }
   _dragover (ev) {
     ev.preventDefault()
@@ -102,11 +94,13 @@ class AppWindow extends window.HTMLElement {
   }
   _drop (ev) {
     let offset = ev.dataTransfer.getData('text/plain').split(',')
-    let menu = this._menu
-    menu.style.left = (ev.clientX + parseInt(offset[0], 10)) + 'px'
-    menu.style.top = (ev.clientY + parseInt(offset[1], 10)) + 'px'
+    this._menu.style.left = (ev.clientX + parseInt(offset[0], 10)) + 'px'
+    this._menu.style.top = (ev.clientY + parseInt(offset[1], 10)) + 'px'
     ev.preventDefault()
     console.log('Dragged element dropped on target')
+  } */
+  _closeWindow () {
+    this.style.display = 'none'
   }
 }
 
