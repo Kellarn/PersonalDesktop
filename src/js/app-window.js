@@ -4,7 +4,6 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
    :host {
-     position:absolute;
      left:50px;
      top:50px;
      background:black;
@@ -42,7 +41,7 @@ template.innerHTML = `
    }
    </style>
 
-   <div id="menu">
+   <div id="menu" id="hello">
     <p id="text">Window</p>
     <img src="../image/close.png" class="close">
     <img src="../image/minimize.png" class="min">
@@ -59,6 +58,7 @@ class AppWindow extends window.HTMLElement {
     this._menu = this.shadowRoot.querySelector('#menu')
     this._html = document.querySelector('html')
     this._close = this.shadowRoot.querySelector('.close')
+    this._min = this.shadowRoot.querySelector('.min')
   }
 
   static get observedAttributes () {
@@ -73,15 +73,15 @@ class AppWindow extends window.HTMLElement {
     }
   }
   connectedCallback () {
-   // this._menu.addEventListener('dragstart', this._dragstart, false)
-   // this._html.addEventListener('dragover', this._dragover, false)
-   // this._html.addEventListener('drop', this._drop, false)
+    // this._menu.addEventListener('dragstart', this._dragstart, false)
+    // this._html.addEventListener('dragover', this._dragover, false)
+    // this._html.addEventListener('drop', this._drop, false)
     this._close.addEventListener('click', this._closeWindow)
   }
-
   disconnectedCallback () {}
 
-  /* _dragstart (ev) {
+  /*
+  _dragstart (ev) {
     let style = window.getComputedStyle(ev.target, null)
     ev.dataTransfer.setData('text/plain',
     (parseInt(style.getPropertyValue('left'), 10) - ev.clientX) + ',' +
@@ -94,14 +94,13 @@ class AppWindow extends window.HTMLElement {
   }
   _drop (ev) {
     let offset = ev.dataTransfer.getData('text/plain').split(',')
-    this._menu.style.left = (ev.clientX + parseInt(offset[0], 10)) + 'px'
-    this._menu.style.top = (ev.clientY + parseInt(offset[1], 10)) + 'px'
+
+    this.style.left = (ev.clientX + parseInt(offset[0], 10)) + 'px'
+    this.style.top = (ev.clientY + parseInt(offset[1], 10)) + 'px'
     ev.preventDefault()
     console.log('Dragged element dropped on target')
-  } */
-  _closeWindow () {
-    this.style.display = 'none'
   }
+  */
 }
 
 window.customElements.define('app-window', AppWindow)
