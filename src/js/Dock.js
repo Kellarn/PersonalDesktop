@@ -1,6 +1,5 @@
 'use strict'
 const AppWindow = require('./AppWindow')
-const Desktop = require('./Desktop')
 
 class Dock {
   constructor (desktop) {
@@ -23,12 +22,12 @@ class Dock {
   }
 
   startApp (type, title) {
-    let marginX = 1 * (this.desktop.offsetX)
-    let marginY = 1 * (this.desktop.offsetY)
+    let marginX = 10 * (this.desktop.offsetX)
+    let marginY = 10 * (this.desktop.offsetY)
 
     let options = {
       title: title,
-      id: 'App#' + this.desktop.appWindow,
+      id: 'App-' + this.desktop.appNumber,
       zIndex: this.desktop.zIndex,
       tabIndex: this.desktop.appNumber,
       x: marginX,
@@ -36,13 +35,16 @@ class Dock {
     }
 
     let thisApp = this.createApp(type, options)
+    console.log(thisApp)
 
     if (thisApp) {
-      this.desktop.windows.push(thisApp)
+      this.desktop.windowArray.push(thisApp)
+      console.log(this.desktop.windowArray)
 
       this.desktop.appNumber += 1
       this.desktop.offsetX += 1
       this.desktop.offsetY += 1
+      this.desktop.zIndex += 1
     }
   }
   init () {
@@ -53,7 +55,6 @@ class Dock {
     let title
 
     let element = this.getClickedElement(event.target)
-    console.log(element)
 
     if (element) {
       value = element.getAttribute('value')

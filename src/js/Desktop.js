@@ -15,6 +15,16 @@ class Desktop {
   init () {
     this.dock.init()
   }
+
+  mouseDown (event) {
+    let element = event.target
+
+    if (element.parentNode.classList) {
+      while (!element.parentNode.classList.contains('pwd')) {
+        element = element.parentNode
+      }
+    }
+  }
 }
 
 module.exports = Desktop

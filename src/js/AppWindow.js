@@ -5,7 +5,7 @@ class AppWindow {
     this.id = appOptions.id
     this.element = undefined
     this.tabIndex = appOptions.tabIndex
-    this.title = appOptions.title
+    this.title = appOptions.title || this.id
     this.zIndex = appOptions.zIndex
     this.x = appOptions.x || 10
     this.y = appOptions.y || 10
