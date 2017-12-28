@@ -1,13 +1,17 @@
 'use strict'
 
 const AppWindow = require('./AppWindow')
+let zIndex = 1
 
 let options = {
-  title: 'Window1',
-  id: 'Window1'
+  title: 'Hello',
+  id: 'Window1',
+  zIndex: zIndex
 }
 let clickwindow = document.querySelector('#window')
 clickwindow.onclick = function () {
+  zIndex++
   let window1 = new AppWindow(options)
   window1.print()
+  console.log(zIndex)
 }

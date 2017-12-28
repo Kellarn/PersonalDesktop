@@ -7,6 +7,8 @@ class AppWindow {
     this.tabIndex = appOptions.tabIndex
     this.title = appOptions.title
     this.zIndex = appOptions.zIndex
+    this.x = appOptions.x
+    this.y = appOptions.y
   }
 
   print () {
@@ -15,12 +17,20 @@ class AppWindow {
     window.setAttribute('id', this.id)
     window.setAttribute('tabIndex', this.tabIndex)
     window.style.zIndex = this.zIndex
+    window.style.left = this.x + 'px'
+    window.style.top = this.y + 'px'
 
     let main = document.querySelector('#pwd')
     main.appendChild(window)
 
     this.element = document.querySelector('#' + this.id)
+    // this.element.querySelector('.title').appendChild(document.createTextNode(this.title))
+    this.element.querySelector('.title').textContent = this.title
     console.log(this.element)
+  }
+
+  close () {
+    document.querySelector('#pwd').removeChild(this.element)
   }
 }
 
