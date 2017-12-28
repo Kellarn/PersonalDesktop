@@ -48,4 +48,13 @@ body{
     margin-top:5px;
     padding:0;
     color:white;
-  }
+}
+
+ul{
+    text-align: center;
+    list-style-type: none;
+}
+ul li{
+    margin:10px;
+    display: inline-block;
+}

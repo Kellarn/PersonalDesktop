@@ -7,8 +7,8 @@ class AppWindow {
     this.tabIndex = appOptions.tabIndex
     this.title = appOptions.title
     this.zIndex = appOptions.zIndex
-    this.x = appOptions.x
-    this.y = appOptions.y
+    this.x = appOptions.x || 10
+    this.y = appOptions.y || 10
   }
 
   print () {
