@@ -1,4 +1,5 @@
 'use strict'
+const Dock = require('./Dock')
 
 class Desktop {
   constructor () {
@@ -8,5 +9,12 @@ class Desktop {
     this.offsetY = 1
     this.activeWindow = false
     this.appNumber = 0
+    this.dock = new Dock(this)
+  }
+
+  init () {
+    this.dock.init()
   }
 }
+
+module.exports = Desktop

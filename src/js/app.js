@@ -1,6 +1,9 @@
 'use strict'
+const Desktop = require('./Desktop')
 
-const AppWindow = require('./AppWindow')
+let newDesktop = new Desktop()
+newDesktop.init()
+/* const AppWindow = require('./AppWindow')
 // const interact = require('interactjs')
 let zIndex = 1
 
@@ -15,4 +18,4 @@ clickwindow.onclick = function () {
   let window1 = new AppWindow(options)
   window1.print()
   console.log(options)
-}
+} */
