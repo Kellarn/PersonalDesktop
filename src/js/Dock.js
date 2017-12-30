@@ -1,5 +1,6 @@
 'use strict'
 const AppWindow = require('./AppWindow')
+const Chat = require('./TheChatApp')
 
 class Dock {
   constructor (desktop) {
@@ -13,6 +14,13 @@ class Dock {
       case 'window':
 
         thisApp = new AppWindow(options)
+        thisApp.print()
+
+        break
+
+      case 'chat':
+
+        thisApp = new Chat(options)
         thisApp.print()
 
         break
