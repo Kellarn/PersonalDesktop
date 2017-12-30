@@ -5,8 +5,8 @@ class Desktop {
   constructor () {
     this.windowArray = []
     this.zIndex = 0
-    this.offsetX = 1
-    this.offsetY = 1
+    this.offsetX = 2
+    this.offsetY = 7
     this.clickX = 0
     this.clickY = 0
     this.activeWindow = false
@@ -32,14 +32,12 @@ class Desktop {
     }
 
     if (element.classList.contains('window-div')) {
-        // will add some sort of focus method here.
       if (parseInt(element.style.zIndex) !== this.zIndex) {
         this.setFocus(element)
       }
 
       if (event.target.classList.contains('window-top')) {
         this.clickX = event.clientX - this.activeWindow.x
-        console.log(event.clientX)
         this.clickY = event.clientY - this.activeWindow.y
         element.classList.add('moving')
 
@@ -53,7 +51,6 @@ class Desktop {
     let newX = event.clientX - this.clickX
     let newY = event.clientY - this.clickY
 
-    console.log(newX)
     let newMiddleX = newX + parseInt(this.activeWindow.element.offsetWidth) / 2
     let newMiddleY = newY + parseInt(this.activeWindow.element.offsetHeight) / 2
 
@@ -85,6 +82,47 @@ class Desktop {
         this.activeWindow = this.windowArray[i]
         this.zIndex += 1
         element.style.zIndex = this.zIndex
+      }
+    }
+  }
+
+  clickOnWindowButton (event) {
+    let action = event.target.classList
+    let element = event.target
+
+    if (element.parentNode) {
+      while (!element.parentNode.id) {
+        element = element.parentNode
+      }
+
+      element = element.parentNode
+    }
+
+    let i = -1
+    for (let x = 0; x < this.windowArray.length; x++) {
+      if (this.windowArray[x].id === element.id) {
+        i = x
+      }
+    }
+    if (i !== -1) {
+      this.setFocus(this.windowArray[i].element)
+      console.log(action)
+      if (action.contains('material-icons')) {
+        console.log(element)
+        this.closeWindow(this.windowArray[i].id)
+        element = event.target
+      }
+    }
+  }
+
+  closeWindow (id) {
+    let removed = false
+
+    for (let i = 0; i < this.windowArray.length && !removed; i++) {
+      if (this.windowArray[i].id === id) {
+        this.windowArray[i].close()
+        this.windowArray.splice(i, 1)
+        removed = true
       }
     }
   }
