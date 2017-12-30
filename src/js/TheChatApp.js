@@ -1,5 +1,6 @@
 'use strict'
 const AppWindow = require('./AppWindow')
+const Chat = require('./Chat')
 
 class TheChatApp extends AppWindow {
   constructor (options) {
@@ -13,6 +14,8 @@ class TheChatApp extends AppWindow {
 
   print () {
     super.print(this)
+    this.chat = new Chat(this.element, this.server, this.channel, this.username)
+    this.chat.print()
   }
 }
 
