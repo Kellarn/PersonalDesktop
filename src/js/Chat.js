@@ -11,22 +11,32 @@ class Chat {
     this.messageArray = []
   }
 
+  async initialization () {
+    this.print()
+    await this.connectToServer()
+
+    this.socket.addEventListener('message', this.newMessageFromServer.bind(this))
+    this.element.querySelector('.send-button').addEventListener('click', this.submitMessage.bind(this))
+    this.element.querySelector('.message-text').addEventListener('click', this.toggleFocus.bind(this))
+    this.element.querySelector('form').addEventListener('submit', this.submitMessage.bind(this))
+  }
   print () {
     let template = document.querySelector('#chat-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
-
-    this.element.querySelector('form').addEventListener('submit', this.submitMessage.bind(this))
   }
 
   async connectToServer () {
     this.socket = await new window.WebSocket(this.server)
+
+    this.socket.addEventListener('open', this.connectionOnline.bind(this))
+    this.socket.addEventListener('error', this.connectionOffline.bind(this))
   }
-  submitMessage (event) {
+  async submitMessage (event) {
     event.preventDefault()
 
     let message = this.element.querySelector('.message-text').value
 
-    if (message > 1) {
+    if (message.length > 1) {
       let msg = {
         type: 'message',
         data: message,
@@ -35,8 +45,50 @@ class Chat {
         key: this.key
       }
 
-      this.socket.send(JSON.stringify(msg))
+      await this.socket.send(JSON.stringify(msg))
     }
+  }
+
+  connectionOnline () {
+    this.element.querySelector('.window-top').classList.add('chat-online')
+  }
+
+  connectionOffline () {
+    this.element.querySelector('.window-top').classList.add('chat-offline')
+  }
+
+  newMessageFromServer (event) {
+    let data = JSON.parse(event.data)
+    console.log(data)
+
+    if (data.type === 'message' || data.type === 'heartbeat') {
+      if (!data.channel) {
+        data.channel = ''
+      }
+
+      if (data.channel === this.channel) {
+        this.printNewMessage(data)
+        this.saveNewMessage(data)
+      }
+    }
+  }
+
+  printNewMessage (data) {
+    let newMessageTemplate = document.querySelector('#li-old-message-template').content.cloneNode(true)
+    let username = document.createTextNode(data.username + ': ')
+    let message = document.createTextNode(data.data)
+
+    newMessageTemplate.querySelector('.message-message').appendChild(message)
+    newMessageTemplate.querySelector('.message-username').appendChild(username)
+
+    this.element.querySelector('.old-messages ul').appendChild(newMessageTemplate)
+  }
+  saveNewMessage (data) {
+
+  }
+
+  toggleFocus () {
+    this.element.classList.toggle('window-focus')
   }
 }
 

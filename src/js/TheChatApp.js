@@ -7,15 +7,19 @@ class TheChatApp extends AppWindow {
     super(options)
 
     this.chat = undefined
-    this.username = ''
+    this.username = 'Seabass'
     this.server = 'ws://vhost3.lnu.se:20080/socket/'
     this.channel = ''
   }
 
+  initialization () {
+    this.print()
+    this.chat = new Chat(this.element, this.server, this.channel, this.username)
+    this.chat.initialization()
+  }
+
   print () {
     super.print(this)
-    this.chat = new Chat(this.element, this.server, this.channel, this.username)
-    this.chat.print()
   }
 }
 

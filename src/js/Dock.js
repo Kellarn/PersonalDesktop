@@ -21,7 +21,7 @@ class Dock {
       case 'chat':
 
         thisApp = new Chat(options)
-        thisApp.print()
+        thisApp.initialization()
 
         break
     }
