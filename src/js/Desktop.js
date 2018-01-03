@@ -22,7 +22,6 @@ class Desktop {
   }
 
   mouseDown (event) {
-    event.preventDefault()
     let element = event.target
 
     if (element.parentNode.classList) {

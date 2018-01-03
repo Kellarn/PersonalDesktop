@@ -16,10 +16,16 @@ class TheChatApp extends AppWindow {
     this.print()
     this.chat = new Chat(this.element, this.server, this.channel, this.username)
     this.chat.initialization()
+    this.setFocus()
   }
 
   print () {
     super.print(this)
+  }
+
+  setFocus () {
+    this.element.classList.remove('window-focus')
+    this.element.focus()
   }
 }
 

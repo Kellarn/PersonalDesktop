@@ -17,7 +17,8 @@ class Chat {
 
     this.socket.addEventListener('message', this.newMessageFromServer.bind(this))
     this.element.querySelector('.send-button').addEventListener('click', this.submitMessage.bind(this))
-    this.element.querySelector('.message-text').addEventListener('click', this.toggleFocus.bind(this))
+    // this.element.querySelector('form').addEventListener('focusout', this.toggleFocus.bind(this))
+    // this.element.querySelector('.message-text').addEventListener('focus', this.toggleFocus.bind(this))
     this.element.querySelector('form').addEventListener('submit', this.submitMessage.bind(this))
   }
   print () {
@@ -32,7 +33,9 @@ class Chat {
     this.socket.addEventListener('error', this.connectionOffline.bind(this))
   }
   async submitMessage (event) {
-    event.preventDefault()
+    if (event) {
+      event.preventDefault()
+    }
 
     let message = this.element.querySelector('.message-text').value
 
