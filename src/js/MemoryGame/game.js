@@ -14,8 +14,10 @@ class MemoryGame {
     this.imageNumberArray = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]
     this.currentGameImgAmount = this.imageNumberArray.slice(0, (this.x * this.y))
     this.turns = 0
+    this.clickFunction = this.clickOnCard.bind(this)
 
     this.shuffleCards()
+    this.addEvent()
   }
 
   initialization () {
@@ -27,6 +29,8 @@ class MemoryGame {
       array.length = this.y
       this.boardArray.push(array)
     }
+
+    this.flippedCards = []
 
     for (i = 0; i < this.y; i++) {
       for (let x = 0; x < this.x - 1; x += 2) {
@@ -46,6 +50,27 @@ class MemoryGame {
       this.currentGameImgAmount[i] = this.currentGameImgAmount[random]
       this.currentGameImgAmount[random] = temp
     }
+  }
+
+  turnCard (element) {
+    if (this.flippedCards.length < 2 && !element.classList.contains('disabled')) {
+      if (element.classList.contains('card')) {
+        let cardNumbers = element.classList[0].split('-')[1]
+        let firstNumber = cardNumbers.charAt(0)
+        let secondNumber = cardNumbers.charAt(1)
+
+        element.classList.add('img-' + this.boardArray[firstNumber][secondNumber].cardNumber)
+        element.classList.add('img')
+      }
+    }
+  }
+
+  clickOnCard (event) {
+    this.turnCard(event.target)
+  }
+
+  addEvent () {
+    this.element.addEventListener('click', this.clickFunction)
   }
 }
 

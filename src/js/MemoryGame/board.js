@@ -21,7 +21,7 @@ class MemoryBoard {
 
       for (let x = 0; x < this.x; x++) {
         col = document.createElement('div')
-        col.classList.add('card-' + i + x)
+        col.classList.add('card-' + i + x, 'card')
 
         row.appendChild(col)
       }

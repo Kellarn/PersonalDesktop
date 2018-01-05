@@ -18,6 +18,7 @@ class TheMemoryApp extends AppWindow {
   }
   print () {
     super.print(this)
+    this.element.classList.add('memory')
   }
 }
 

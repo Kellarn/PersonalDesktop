@@ -57,9 +57,7 @@ html, body {
     position:absolute;
     right:0;
 }
-.close-button:hover{
-    background-color: red;
-}
+
 .min-button{
      position:absolute;
      right:30px;
@@ -82,6 +80,9 @@ html, body {
 }
 .material-icons.md-48 { font-size: 48px; }
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.window-buttons .close-button .material-icons:hover {
+    color:red;
+}
 #dock-list li{
     margin:10px;
     display: inline-block;
@@ -93,6 +94,12 @@ html, body {
 	opacity: 0.6;
 	cursor: move;
 }
+
+
+/************************/
+ /* Style for Chat App */
+  /********************/
+
 .old-messages {
     height:220px;
     margin-top:5px;
@@ -103,9 +110,7 @@ html, body {
     position: relative;
     overflow-y:scroll;
 }
-.window-focus{
-}
-.application-content {
+.chat .application-content {
     text-align: left;
     position: relative;
     margin-top:50px;
@@ -127,4 +132,30 @@ html, body {
     text-align:center;
     height:30px;
     width:100px;
+}
+
+
+/***************************/
+ /* Style for Memory Game */
+  /***********************/
+.memory{
+    width:480px;
+    height:350px;
+}
+.memory .application-content {
+    text-align: center;
+}
+.row {
+    display:block;
+    height:90px;
+    width:100%;
+}
+
+.card {
+    display:inline-block;
+    width:80px;
+    height:80px;
+    cursor: pointer;
+    background-color: black;
+    margin: 5px;
 }

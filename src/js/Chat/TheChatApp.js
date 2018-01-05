@@ -21,6 +21,7 @@ class TheChatApp extends AppWindow {
 
   print () {
     super.print(this)
+    this.element.classList.add('chat')
   }
 
   setFocus () {
