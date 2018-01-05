@@ -17,9 +17,10 @@ class Chat {
 
     this.socket.addEventListener('message', this.newMessageFromServer.bind(this))
     this.element.querySelector('.send-button').addEventListener('click', this.submitMessage.bind(this))
-    // this.element.querySelector('form').addEventListener('focusout', this.toggleFocus.bind(this))
-    // this.element.querySelector('.message-text').addEventListener('focus', this.toggleFocus.bind(this))
+    this.element.querySelector('form').addEventListener('focusout', this.toggleFocus.bind(this))
+    this.element.querySelector('.message-text').addEventListener('focus', this.toggleFocus.bind(this))
     this.element.querySelector('form').addEventListener('submit', this.submitMessage.bind(this))
+    this.element.querySelector('.message-text').addEventListener('input', this.controlInput.bind(this))
   }
   print () {
     let template = document.querySelector('#chat-template').content.cloneNode(true)
@@ -49,6 +50,8 @@ class Chat {
       }
 
       await this.socket.send(JSON.stringify(msg))
+      this.element.querySelector('.send-button').setAttribute('disabled', 'disabled')
+      this.element.querySelector('form').reset()
     }
   }
 
@@ -71,12 +74,19 @@ class Chat {
 
       if (data.channel === this.channel) {
         this.printNewMessage(data)
-        this.saveNewMessage(data)
+        // this.saveNewMessage(data)
       }
     }
   }
 
   printNewMessage (data) {
+    let oldMessageList = this.element.querySelector('.old-messages')
+    let scrolled = false
+
+    if (oldMessageList.scrollTop !== (oldMessageList.scrollHeight - oldMessageList.offsetHeight)) {
+      scrolled = true
+    }
+
     let newMessageTemplate = document.querySelector('#li-old-message-template').content.cloneNode(true)
     let username = document.createTextNode(data.username + ': ')
     let message = document.createTextNode(data.data)
@@ -85,13 +95,29 @@ class Chat {
     newMessageTemplate.querySelector('.message-username').appendChild(username)
 
     this.element.querySelector('.old-messages ul').appendChild(newMessageTemplate)
+
+    this.scrollToBottom(scrolled)
+  }
+  scrollToBottom (scrolled) {
+    let oldMessageList = this.element.querySelector('.old-messages')
+
+    if (!scrolled) {
+      oldMessageList.scrollTop = oldMessageList.scrollHeight
+    }
   }
   saveNewMessage (data) {
 
   }
-
   toggleFocus () {
     this.element.classList.toggle('window-focus')
+  }
+
+  controlInput (event) {
+    let input = event.target.value
+
+    if (input.length > 1) {
+      this.element.querySelector('.send-button').removeAttribute('disabled')
+    }
   }
 }
 

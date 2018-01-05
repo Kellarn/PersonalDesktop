@@ -4,13 +4,14 @@
 	<head>
 		<title>Examination 3</title>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,500" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<meta charset="utf-8" />
 		
 		<template id="window-template">
 			<div class="window-div">
 				<div class="window-top">
-					<span class="title"></span>
+					<span class="title" onselectstart="return false"></span>
 					<div class="window-buttons">
 						<span class="close-button"><i class="material-icons">close</i></span>
 						<span class="min-button"><i class="material-icons">remove</i></span>
@@ -32,8 +33,8 @@
 			</div>
 			<div class="new-message-form">
 				<form>
-					<textarea class="message-text"></textarea>
-					<input class="send-button" type="button" value="Send">
+					<textarea class="message-text" placeholder="Type your message here..."></textarea>
+					<input class="send-button" type="button" value="Send" disabled="disabled">
 				</form>
 			</div>
 		</template>
@@ -49,9 +50,9 @@
 
     </head>
 	<body>
-		<div id="pwd" class="pwd">
+		<div id="pwd" class="pwd" onselectstart="return false">
 			<div class="dock">
-				<ul id='dock-list'>
+				<ul id='dock-list' onselectstart="return false">
 					<li class='dock-item' value="window">
 						<i class="material-icons md-48 md-light">desktop_windows</i>
 						<span class="title">EXWindow</span>
