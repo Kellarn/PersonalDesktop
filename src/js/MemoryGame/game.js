@@ -14,10 +14,14 @@ class MemoryGame {
     this.imageNumberArray = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]
     this.currentGameImgAmount = this.imageNumberArray.slice(0, (this.x * this.y))
     this.turns = 0
+    this.correctCounter = 0
+    this.timerCounter = 0
     this.clickFunction = this.clickOnCard.bind(this)
+    this.timeOut = undefined
 
     this.shuffleCards()
     this.addEvent()
+    this.timer()
   }
 
   initialization () {
@@ -39,7 +43,6 @@ class MemoryGame {
         this.boardArray[i][x + 1] = new Card('' + i + (x + 1), this.currentGameImgAmount.pop())
       }
     }
-    console.log(this.boardArray)
   }
 
   shuffleCards () {
@@ -54,6 +57,7 @@ class MemoryGame {
   }
 
   turnCard (element) {
+    console.log(this.currentTime)
     if (this.flippedCards.length < 2 && !element.classList.contains('disabled')) {
       if (element.classList.contains('card')) {
         let cardNumbers = element.classList[0].split('-')[1]
@@ -64,6 +68,7 @@ class MemoryGame {
         element.classList.add('img')
 
         this.flippedCards.push(this.boardArray[firstNumber][secondNumber])
+        this.element.querySelector('.card-' + this.boardArray[firstNumber][secondNumber].id).classList.add('disabled')
 
         if (this.flippedCards.length === 2) {
           this.checkIfSame()
@@ -73,18 +78,26 @@ class MemoryGame {
   }
 
   checkIfSame () {
+    this.turns += 1
     if (this.flippedCards[0].cardNumber === this.flippedCards[1].cardNumber) {
       this.element.querySelector('.card-' + this.flippedCards[0].id).classList.add('correct-answer')
       this.element.querySelector('.card-' + this.flippedCards[1].id).classList.add('correct-answer')
 
       this.flippedCards = []
+
+      this.correctCounter += 1
+
+      if (this.correctCounter === (this.x * this.y) / 2) {
+        this.gameFinished()
+      }
     } else {
       for (let i = 0; i < this.flippedCards.length; i++) {
-        console.log(this.flippedCards[i].id)
         this.element.querySelector('.card-' + this.flippedCards[i].id).classList.add('false-answer')
+        this.element.querySelector('.card-' + this.flippedCards[i].id).classList.remove('disabled')
       }
       setTimeout(this.turnBackCard.bind(this), 1000)
     }
+    console.log(this.turns)
   }
 
   turnBackCard () {
@@ -104,6 +117,27 @@ class MemoryGame {
 
   addEvent () {
     this.element.addEventListener('click', this.clickFunction)
+  }
+
+  timer () {
+    let currentTime = 0
+    this.timeOut = setInterval(function () {
+      currentTime = currentTime + 1
+      this.currentTime += 1
+    }, 1000)
+  }
+
+  clearTimer () {
+    clearInterval(this.timeOut)
+  }
+
+  gameFinished () {
+    let totalTime = this.currentTime
+    this.clearTimer()
+
+    let p = document.createElement('p')
+    p.innerText = this.currentTime
+    this.element.appendChild(p)
   }
 }
 
