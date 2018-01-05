@@ -24,6 +24,7 @@ class MemoryGame {
     let i = 0
 
     this.boardArray = []
+
     for (i = 0; i < this.y; i++) {
       let array = []
       array.length = this.y
@@ -34,8 +35,8 @@ class MemoryGame {
 
     for (i = 0; i < this.y; i++) {
       for (let x = 0; x < this.x - 1; x += 2) {
-        this.boardArray[i][x] = new Card(i + x, this.currentGameImgAmount.pop())
-        this.boardArray[i][x + 1] = new Card(i + (x + 1), this.currentGameImgAmount.pop())
+        this.boardArray[i][x] = new Card('' + i + x, this.currentGameImgAmount.pop())
+        this.boardArray[i][x + 1] = new Card('' + i + (x + 1), this.currentGameImgAmount.pop())
       }
     }
     console.log(this.boardArray)
@@ -61,8 +62,40 @@ class MemoryGame {
 
         element.classList.add('img-' + this.boardArray[firstNumber][secondNumber].cardNumber)
         element.classList.add('img')
+
+        this.flippedCards.push(this.boardArray[firstNumber][secondNumber])
+
+        if (this.flippedCards.length === 2) {
+          this.checkIfSame()
+        }
       }
     }
+  }
+
+  checkIfSame () {
+    if (this.flippedCards[0].cardNumber === this.flippedCards[1].cardNumber) {
+      this.element.querySelector('.card-' + this.flippedCards[0].id).classList.add('correct-answer')
+      this.element.querySelector('.card-' + this.flippedCards[1].id).classList.add('correct-answer')
+
+      this.flippedCards = []
+    } else {
+      for (let i = 0; i < this.flippedCards.length; i++) {
+        console.log(this.flippedCards[i].id)
+        this.element.querySelector('.card-' + this.flippedCards[i].id).classList.add('false-answer')
+      }
+      setTimeout(this.turnBackCard.bind(this), 1000)
+    }
+  }
+
+  turnBackCard () {
+    let tempCard
+
+    for (let i = 0; i < this.flippedCards.length; i++) {
+      tempCard = this.flippedCards[i]
+      this.element.querySelector('.card-' + tempCard.id).classList.remove('false-answer', 'img', 'img-' + tempCard.cardNumber)
+    }
+
+    this.flippedCards = []
   }
 
   clickOnCard (event) {

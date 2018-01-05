@@ -7,13 +7,13 @@ class TheMemoryApp extends AppWindow {
     super(options)
 
     this.game = undefined
-    this.boardSize = [4, 2]
+    this.boardSize = [4, 3]
   }
 
   initialization () {
     this.print()
 
-    this.game = new Game(this.element.querySelector('.application-content'), 4, 2)
+    this.game = new Game(this.element.querySelector('.application-content'), 4, 3)
     this.game.initialization()
   }
   print () {

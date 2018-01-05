@@ -25,6 +25,7 @@ class Chat {
   print () {
     let template = document.querySelector('#chat-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
+    this.element.querySelector('.application-content').setAttribute('onselectstart', 'return true')
   }
 
   async connectToServer () {
