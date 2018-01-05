@@ -57,6 +57,9 @@ html, body {
     position:absolute;
     right:0;
 }
+.close-button:hover{
+    background-color: red;
+}
 .min-button{
      position:absolute;
      right:30px;

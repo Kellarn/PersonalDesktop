@@ -1,5 +1,5 @@
 'use strict'
-const AppWindow = require('./AppWindow')
+const AppWindow = require('../AppWindow')
 const Chat = require('./Chat')
 
 class TheChatApp extends AppWindow {

@@ -1,5 +1,5 @@
 'use strict'
-const AppWindow = require('./AppWindow')
+const AppWindow = require('../AppWindow')
 const Game = require('./game')
 
 class TheMemoryApp extends AppWindow {
@@ -13,7 +13,7 @@ class TheMemoryApp extends AppWindow {
   initialization () {
     this.print()
 
-    this.game = new Game(this.element.querySelctor('.application-content'), 4, 2)
+    this.game = new Game(this.element.querySelector('.application-content'), 4, 2)
     this.game.initialization()
   }
   print () {
