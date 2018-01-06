@@ -16,9 +16,10 @@ class Filterify {
     }
   }
 
-  initialization () {
+  async initialization () {
     this.print()
-    this.startUp()
+    await this.startUp()
+    this.handleSuccess()
   }
 
   print () {
@@ -26,13 +27,14 @@ class Filterify {
     this.element.querySelector('.application-content').appendChild(template)
   }
 
-  startUp () {
+  async startUp () {
     this.video = this.element.querySelector('#video')
     this.canvas = this.element.querySelector('#canvas')
     this.photo = this.element.querySelector('#photo')
     this.startButton = this.element.querySelector('#startButton')
 
-    navigator.mediaDevices.getUserMedia(this.constraints).then(this.handleSuccess)
+    await navigator.mediaDevices.getUserMedia(this.constraints)
+    return navigator.mediaDevices.getUserMedia(this.constraints)
   }
   handleSuccess (stream) {
     let videoTracks = stream.getVideoTracks()
