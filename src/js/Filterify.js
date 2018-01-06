@@ -3,26 +3,11 @@
 class Filterify {
   constructor (element) {
     this.element = element
-    this.width = 320
-    this.height = 0
-<<<<<<< HEAD
     this.streaming = false
-    this.video = null
-    this.canvas = null
-    this.photo = null
-    this.startButton = null
-    this.localStream = undefined
+    this.width = 200
+    this.height = 0
   }
-
   initialization () {
-=======
-    this.constraints = window.constraints = {
-      audio: false,
-      video: true
-    }
-  }
-  async initialization () {
->>>>>>> 2e9b0f676f08c11b807580f08d499534d48b9617
     this.print()
     this.startUp()
   }
@@ -32,40 +17,98 @@ class Filterify {
     this.element.querySelector('.application-content').appendChild(template)
   }
 
-  start () {
-    this.video = this.element.querySelector('#video')
-    this.canvas = this.element.querySelector('#canvas')
-    this.photo = this.element.querySelector('#photo')
-    this.startButton = this.element.querySelector('#startButton')
-    window.trace('Requesting local stream')
-    this.startButton.disabled = true
-    navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: true
-    })
-    .then(this.gotStream)
-    .catch(function (e) {
-      window.alert('getUserMedia() error: ' + e.name)
-    })
-  }
-<<<<<<< HEAD
-  gotStream (stream) {
-    this.video = this.element.querySelector('#video')
-    window.trace('Received local stream')
-    this.video.srcObject = stream
-    this.localStream = stream
-=======
-  handleSuccess (stream) {
-    let videoTracks
-    // console.log(this.element.querySelector('#video'))
-    window.stream = stream
-    this.element.querySelector('#video').srcObject = stream
-    videoTracks = stream.getVideoTracks()
-    console.log('Using video device: ' + videoTracks[0].label)
-    stream.oninactive = function () {
-      console.log('Stream inactive')
+  takePicture () {
+    console.log('hello')
+    let video = this.element.querySelector('#video')
+    let canvas = this.element.querySelector('#canvas')
+    let photo = this.element.querySelector('#photo')
+    let context = canvas.getContext('2d')
+
+    if (this.width && this.height) {
+      canvas.width = this.width
+      canvas.height = this.height
+      context.drawImage(video, 0, 0, this.width, this.height)
+
+      let data = canvas.toDataURL('image/png')
+      photo.setAttribute('src', data)
+    } else {
+      this.clearPhoto()
     }
->>>>>>> 2e9b0f676f08c11b807580f08d499534d48b9617
+  }
+  startUp () {
+    let video = this.element.querySelector('#video')
+    let canvas = this.element.querySelector('#canvas')
+    let photo = this.element.querySelector('#photo')
+    let startButton = this.element.querySelector('#startbutton')
+    let width = 200
+    let height = 0
+
+    navigator.getMedia = (navigator.getUserMedia ||
+                           navigator.webkitGetUserMedia ||
+                           navigator.mozGetUserMedia ||
+                            navigator.msGetUserMedia)
+
+    navigator.getMedia({
+      video: true,
+      audio: false
+    },
+    function (stream) {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream
+      } else {
+        let vendorURL = window.URL || window.webkitURL
+        video.src = vendorURL.createObjectURL(stream)
+      }
+      video.play()
+    },
+  function (err) {
+    console.log(err)
+  })
+
+    video.addEventListener('canplay', function (ev) {
+      if (!this.streaming) {
+        height = video.videoHeight / (video.videoWidth / width)
+        console.log(video.videoWidth)
+
+        video.setAttribute('width', width)
+        video.setAttribute('height', height)
+        canvas.setAttribute('height', height)
+        canvas.setAttribute('height', height)
+        this.streaming = true
+        console.log(this.streaming)
+      }
+    })
+
+    startButton.addEventListener('click', function (event) {
+      event.preventDefault()
+      let context = canvas.getContext('2d')
+
+      if (width && height) {
+        console.log('Hello')
+        canvas.width = width
+        canvas.height = height
+        context.drawImage(video, 0, 0, width, height)
+
+        let data = canvas.toDataURL('image/png')
+        photo.setAttribute('src', data)
+      } else {
+        // this.clearPhoto()
+      }
+    }, false)
+
+    // this.clearPhoto()
+  }
+
+  clearPhoto () {
+    let photo = this.element.querySelector('#photo')
+    let canvas = this.element.querySelector('#canvas')
+    let context = canvas.getContext('2d')
+
+    context.fillStyle = '#AAA'
+    context.fillRect(0, 0, canvas.width, canvas.width)
+
+    let data = canvas.toDataURL('image/png')
+    photo.setAttribute('src', data)
   }
 }
 module.exports = Filterify
