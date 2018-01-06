@@ -58,6 +58,18 @@
 			</div>
 		</template>
 
+		<template id="filterify-template">
+			<div class="camera">
+				<video id="video">Video stream not available.</video>
+				<button id="startbutton">Take photo</button> 
+			  </div>
+			  <canvas id="canvas">
+			  </canvas>
+			  <div class="output">
+				<img id="photo" alt="The screen capture will appear in this box."> 
+			  </div>
+		</template>
+
     </head>
 	<body>
 		<div id="pwd" class="pwd">
@@ -75,8 +87,9 @@
 						<i class="material-icons md-48 md-light">chat</i>
 						<span class="title">Chat</span>
 					</li>
-					<li class='dock-item'>
+					<li class='dock-item' value="filterify">
 						<i class="material-icons md-48 md-light">account_box</i>
+						<span class="title">Filterify</span>
 					</li>
 				</ul>
 

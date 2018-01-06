@@ -2,6 +2,7 @@
 const AppWindow = require('./AppWindow')
 const Chat = require('./Chat/TheChatApp')
 const Memory = require('./MemoryGame/theMemoryApp')
+const Filterify = require('./FilterifyApp')
 
 class Dock {
   constructor (desktop) {
@@ -29,6 +30,13 @@ class Dock {
       case 'memory':
 
         thisApp = new Memory(options)
+        thisApp.initialization()
+
+        break
+
+      case 'filterify':
+
+        thisApp = new Filterify(options)
         thisApp.initialization()
 
         break

@@ -227,3 +227,17 @@ body{
     vertical-align: middle;
     color:black;
 }
+
+/******************************/
+ /* Style for Filiterify App */
+  /**************************/
+  .filterify {
+      width:500px;
+      height:500px;
+  }
+  .camera{
+      margin-top:30px;
+  }
+  .output{
+      height:200px;
+  }
