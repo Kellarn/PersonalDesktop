@@ -10,16 +10,12 @@ class Filterify {
     this.canvas = null
     this.photo = null
     this.startButton = null
-    this.constraints = window.constraints = {
-      audio: false,
-      video: true
-    }
+    this.localStream = undefined
   }
 
-  async initialization () {
+  initialization () {
     this.print()
-    await this.startUp()
-    this.handleSuccess()
+    this.startUp()
   }
 
   print () {
@@ -27,22 +23,27 @@ class Filterify {
     this.element.querySelector('.application-content').appendChild(template)
   }
 
-  async startUp () {
+  start () {
     this.video = this.element.querySelector('#video')
     this.canvas = this.element.querySelector('#canvas')
     this.photo = this.element.querySelector('#photo')
     this.startButton = this.element.querySelector('#startButton')
-
-    await navigator.mediaDevices.getUserMedia(this.constraints)
-    return navigator.mediaDevices.getUserMedia(this.constraints)
+    window.trace('Requesting local stream')
+    this.startButton.disabled = true
+    navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: true
+    })
+    .then(this.gotStream)
+    .catch(function (e) {
+      window.alert('getUserMedia() error: ' + e.name)
+    })
   }
-  handleSuccess (stream) {
-    let videoTracks = stream.getVideoTracks()
-    console.log('Got stream with constraints:', this.constraints)
-    console.log('Using video device: ' + videoTracks[0].label)
-    stream.oninactive = function () {
-      console.log('Stream inactive')
-    }
+  gotStream (stream) {
+    this.video = this.element.querySelector('#video')
+    window.trace('Received local stream')
+    this.video.srcObject = stream
+    this.localStream = stream
   }
 }
 module.exports = Filterify
