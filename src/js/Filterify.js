@@ -5,11 +5,6 @@ class Filterify {
     this.element = element
     this.width = 320
     this.height = 0
-    this.streaming = false
-    this.video = null
-    this.canvas = null
-    this.photo = null
-    this.startButton = null
     this.constraints = window.constraints = {
       audio: false,
       video: true
@@ -17,6 +12,7 @@ class Filterify {
   }
 
   initialization () {
+    console.log(this.element)
     this.print()
     this.startUp()
   }
@@ -24,19 +20,21 @@ class Filterify {
   print () {
     let template = document.querySelector('#filterify-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
-  }
-
-  startUp () {
     this.video = this.element.querySelector('#video')
     this.canvas = this.element.querySelector('#canvas')
     this.photo = this.element.querySelector('#photo')
     this.startButton = this.element.querySelector('#startButton')
+  }
 
-    navigator.mediaDevices.getUserMedia(this.constraints).then(this.handleSuccess)
+  startUp () {
+    navigator.mediaDevices.getUserMedia(this.constraints).then(this.handleSuccess())
   }
   handleSuccess (stream) {
-    let videoTracks = stream.getVideoTracks()
-    console.log('Got stream with constraints:', this.constraints)
+    let videoTracks
+    // console.log(this.element.querySelector('#video'))
+    window.stream = stream
+    this.element.querySelector('#video').srcObject = stream
+    videoTracks = stream.getVideoTracks()
     console.log('Using video device: ' + videoTracks[0].label)
     stream.oninactive = function () {
       console.log('Stream inactive')
