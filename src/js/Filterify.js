@@ -32,7 +32,15 @@ class Filterify {
     this.photo = this.element.querySelector('#photo')
     this.startButton = this.element.querySelector('#startButton')
 
-    navigator.mediaDevices.getUserMedia(this.constraints)
+    navigator.mediaDevices.getUserMedia(this.constraints).then(this.handleSuccess)
+  }
+  handleSuccess (stream) {
+    let videoTracks = stream.getVideoTracks()
+    console.log('Got stream with constraints:', this.constraints)
+    console.log('Using video device: ' + videoTracks[0].label)
+    stream.oninactive = function () {
+      console.log('Stream inactive')
+    }
   }
 }
 module.exports = Filterify
