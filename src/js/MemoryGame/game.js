@@ -119,12 +119,17 @@ class MemoryGame {
     this.element.addEventListener('click', this.clickFunction)
   }
 
+  removeEvent () {
+    this.element.removeEventListener('click', this.clickFunction)
+  }
+
   gameFinished () {
+    this.removeEvent()
     this.gameTimer = this.timer.stopTimer()
-    console.log(this.gameTimer)
-    let p = document.createElement('p')
-    p.innerText = this.currentTime
-    this.element.appendChild(p)
+    let template = document.querySelector('#memory-finished-template').content.cloneNode(true)
+    template.querySelector('.turns').textContent = this.turns
+    template.querySelector('.time').textContent = this.gameTimer
+    this.element.appendChild(template)
   }
 }
 
