@@ -2,15 +2,18 @@
 
 class Timer {
   constructor () {
-    this.timeCounter = 0
+    this.startTime = undefined
   }
 
-  timer () {
-    this.timeCounter = setTimeout(timer, 1000)
-    if (seconds <= 0) {
-      clearTimer()
-      let message = 'Time is up. You lost :('
-      restart(message)
-    }
+  startTimer () {
+    this.startTime = new Date().getTime()
+  }
+
+  stopTimer () {
+    let currentTime = new Date().getTime()
+
+    return (currentTime - this.startTime) / 1000
   }
 }
+
+module.exports = Timer

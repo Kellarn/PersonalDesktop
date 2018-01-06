@@ -2,6 +2,7 @@
 
 const Card = require('./card')
 const Board = require('./board')
+const Timer = require('./timer')
 
 class MemoryGame {
   constructor (element, x, y) {
@@ -15,13 +16,14 @@ class MemoryGame {
     this.currentGameImgAmount = this.imageNumberArray.slice(0, (this.x * this.y))
     this.turns = 0
     this.correctCounter = 0
-    this.timerCounter = 0
     this.clickFunction = this.clickOnCard.bind(this)
-    this.timeOut = undefined
+    this.currentTime = 0
 
     this.shuffleCards()
     this.addEvent()
-    this.timer()
+    this.timer = new Timer()
+    this.timer.startTimer()
+    this.gameTimer = 0
   }
 
   initialization () {
@@ -57,7 +59,6 @@ class MemoryGame {
   }
 
   turnCard (element) {
-    console.log(this.currentTime)
     if (this.flippedCards.length < 2 && !element.classList.contains('disabled')) {
       if (element.classList.contains('card')) {
         let cardNumbers = element.classList[0].split('-')[1]
@@ -97,7 +98,6 @@ class MemoryGame {
       }
       setTimeout(this.turnBackCard.bind(this), 1000)
     }
-    console.log(this.turns)
   }
 
   turnBackCard () {
@@ -119,22 +119,9 @@ class MemoryGame {
     this.element.addEventListener('click', this.clickFunction)
   }
 
-  timer () {
-    let currentTime = 0
-    this.timeOut = setInterval(function () {
-      currentTime = currentTime + 1
-      this.currentTime += 1
-    }, 1000)
-  }
-
-  clearTimer () {
-    clearInterval(this.timeOut)
-  }
-
   gameFinished () {
-    let totalTime = this.currentTime
-    this.clearTimer()
-
+    this.gameTimer = this.timer.stopTimer()
+    console.log(this.gameTimer)
     let p = document.createElement('p')
     p.innerText = this.currentTime
     this.element.appendChild(p)
