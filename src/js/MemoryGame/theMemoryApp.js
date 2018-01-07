@@ -50,9 +50,8 @@ class TheMemoryApp extends AppWindow {
           this.game.turnCard(this.markedCardForKey)
           break
       }
+      this.markedCardForKey.classList.toggle('marked')
     }
-
-    this.markedCardForKey.classList.toggle('marked')
   }
 
   keyRight () {
@@ -90,15 +89,13 @@ class TheMemoryApp extends AppWindow {
   }
 
   keyUp () {
-    let currentRow
     let nextRow
-    if (this.markedCardForKey.parentNode.nextElementSibling) {
+    if (this.markedCardForKey.parentNode.previousElementSibling) {
       let cardID = this.markedCardForKey.classList[0].slice(-2)
       nextRow = parseInt(cardID.charAt(0)) - 1
     } else {
       let allRows = this.element.querySelectorAll('.row')
-      currentRow = allRows[allRows.length - 1]
-      nextRow = allRows - 1
+      nextRow = allRows.length - 1
     }
 
     let correctCardAtNextRow = this.markedCardForKey.classList[0].slice(-1)

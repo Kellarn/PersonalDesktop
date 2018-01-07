@@ -181,7 +181,6 @@ body{
     background: url('../../image/cardback.png');
     margin: 10px;
     opacity: 1;
-    transition: opacity 1s linear;
 }
 .img {
 }
@@ -238,10 +237,10 @@ body{
     color:black;
 }
 .marked{
-    border:2px solid black;
-    margin:8px;
+    -webkit-box-shadow: 10px 10px 30px -8px rgba(0,0,0,0.76);
+    -moz-box-shadow: 10px 10px 30px -8px rgba(0,0,0,0.76);
+    box-shadow: 10px 10px 30px -8px rgba(0,0,0,0.76);
 }
-
 /******************************/
  /* Style for Filiterify App */
   /**************************/
