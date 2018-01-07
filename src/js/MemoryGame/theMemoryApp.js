@@ -20,6 +20,10 @@ class TheMemoryApp extends AppWindow {
     super.print(this)
     this.element.classList.add('memory')
   }
+
+  keyInput () {
+
+  }
 }
 
 module.exports = TheMemoryApp

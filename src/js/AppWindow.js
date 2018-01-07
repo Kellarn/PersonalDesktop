@@ -4,6 +4,7 @@ class AppWindow {
   constructor (appOptions) {
     this.id = appOptions.id
     this.element = undefined
+    this.icon = appOptions.icon
     this.tabIndex = appOptions.tabIndex
     this.title = appOptions.title || this.id
     this.zIndex = appOptions.zIndex
@@ -26,6 +27,7 @@ class AppWindow {
     this.element = document.querySelector('#' + this.id)
     // this.element.querySelector('.title').appendChild(document.createTextNode(this.title))
     this.element.querySelector('.title').textContent = this.title
+    this.element.querySelector('.icon').textContent = this.icon
     console.log(this.element)
   }
 

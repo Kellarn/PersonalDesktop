@@ -19,24 +19,17 @@ body{
     font-weight: 500;
     width:100%;
     height:100%;
-    background-image: url('../image/bg2.jpg');
+    background-image: url('../image/bg4.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     overflow: hidden;
 }
 .dock {
     height:60px;
-    background-color:#5cc8db;
+    background-color:#358899;
 }
 .dock-item .title{
     display:none;
-}
-.title {
-    display:inline-block;
-    margin:0 auto;
-    margin-top:2px;
-    padding:0;
-    color:white;
 }
 #dock-list{
     text-align: center;
@@ -79,6 +72,23 @@ body{
      width:inherit;
      display:block;
      overflow: hidden;
+}
+.not-selectable {
+	pointer-events: none;
+}
+.window-top .icon {
+    font-size:30px;
+    position: absolute;
+    left:0;
+    margin-left:10px;
+}
+.window-top .title {
+    line-height:30px;
+    clear:both;
+    margin:0 auto;
+    margin-top:2px;
+    padding:0;
+    color:white;
 }
 .window-buttons{
     float:right;

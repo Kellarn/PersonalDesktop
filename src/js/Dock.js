@@ -28,7 +28,7 @@ class Dock {
         break
 
       case 'memory':
-
+        options.activateKeyInput = true
         thisApp = new Memory(options)
         thisApp.initialization()
 
@@ -45,17 +45,19 @@ class Dock {
     return thisApp
   }
 
-  startApp (type, title) {
+  startApp (type, title, icon) {
     let marginX = 10 * (this.desktop.offsetX)
     let marginY = 10 * (this.desktop.offsetY)
 
     let options = {
+      icon: icon,
       title: title,
       id: 'App-' + this.desktop.appNumber,
       zIndex: this.desktop.zIndex,
       tabIndex: this.desktop.appNumber,
       x: marginX,
-      y: marginY
+      y: marginY,
+      activateKeyInput: false
     }
 
     let thisApp = this.createApp(type, options)
@@ -81,6 +83,7 @@ class Dock {
   clickOnDock (event) {
     let value
     let title
+    let icon
 
     let element = this.getClickedElement(event.target)
 
@@ -89,7 +92,8 @@ class Dock {
     }
 
     title = element.querySelector('.title').textContent
-    this.startApp(value, title)
+    icon = element.querySelector('i').textContent
+    this.startApp(value, title, icon)
   }
 
   getClickedElement (target) {

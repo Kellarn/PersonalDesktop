@@ -19,6 +19,7 @@ class Desktop {
   init () {
     this.dock.init()
     document.addEventListener('mousedown', this.mouseDown.bind(this))
+    document.addEventListener('keydown', this.keyPressed.bind(this))
   }
 
   mouseDown (event) {
@@ -105,9 +106,7 @@ class Desktop {
     }
     if (i !== -1) {
       this.setFocus(this.windowArray[i].element)
-      console.log(action)
       if (action.contains('material-icons')) {
-        console.log(element)
         this.closeWindow(this.windowArray[i].id)
         element = event.target
       }
@@ -122,6 +121,15 @@ class Desktop {
         this.windowArray[i].close()
         this.windowArray.splice(i, 1)
         removed = true
+      }
+    }
+  }
+
+  keyPressed (event) {
+    if (document.activeElement.id === this.activeWindow.id) {
+      if (this.activeWindow.activateKeyInput) {
+        this.activeWindow.keyInput(event.keyCode)
+        console.log(event.keyCode)
       }
     }
   }
