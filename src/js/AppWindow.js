@@ -10,6 +10,7 @@ class AppWindow {
     this.zIndex = appOptions.zIndex
     this.x = appOptions.x || 10
     this.y = appOptions.y || 10
+    this.activateKeyInput = appOptions.activateKeyInput
   }
 
   print () {
@@ -17,6 +18,7 @@ class AppWindow {
     let window = template.querySelector('.window-div')
     window.setAttribute('id', this.id)
     window.setAttribute('tabIndex', this.tabIndex)
+    window.setAttribute('activateKeyInput', this.activateKeyInput)
     window.style.zIndex = this.zIndex
     window.style.left = this.x + 'px'
     window.style.top = this.y + 'px'

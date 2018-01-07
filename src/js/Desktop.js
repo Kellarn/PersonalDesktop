@@ -129,7 +129,6 @@ class Desktop {
     if (document.activeElement.id === this.activeWindow.id) {
       if (this.activeWindow.activateKeyInput) {
         this.activeWindow.keyInput(event.keyCode)
-        console.log(event.keyCode)
       }
     }
   }

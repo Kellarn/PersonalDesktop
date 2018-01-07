@@ -237,6 +237,10 @@ body{
     vertical-align: middle;
     color:black;
 }
+.marked{
+    border:2px solid black;
+    margin:8px;
+}
 
 /******************************/
  /* Style for Filiterify App */
