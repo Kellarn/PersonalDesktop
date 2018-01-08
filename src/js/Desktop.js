@@ -130,7 +130,20 @@ class Desktop {
       if (this.activeWindow.activateKeyInput) {
         this.activeWindow.keyInput(event.keyCode)
       }
+    } else {
+
     }
+  }
+
+  clearDesktop () {
+    for (let i = 0; i < this.windowArray.length; i++) {
+      this.windowArray[i].close()
+    }
+    this.windowArray = []
+    this.zIndex = 0
+    this.clickX = 0
+    this.clickY = 0
+    this.appNumber = 0
   }
 }
 

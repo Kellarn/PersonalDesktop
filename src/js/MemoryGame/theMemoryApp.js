@@ -7,21 +7,82 @@ class TheMemoryApp extends AppWindow {
     super(options)
 
     this.game = undefined
-    this.boardSize = [4, 3]
+    this.boardSize = [3, 4]
     this.markedCardForKey = undefined
   }
 
   initialization () {
     this.print()
+    this.addGeneralSettings()
 
-    this.game = new Game(this.element.querySelector('.application-content'), 4, 3)
+    this.game = new Game(this.element.querySelector('.application-content'), this.boardSize[1], this.boardSize[0])
     this.game.initialization()
+    this.element.querySelector('.memory-wrapper').addEventListener('click', this.clickOnSetting.bind(this), true)
   }
   print () {
     super.print(this)
     this.element.classList.add('memory')
   }
 
+  addGeneralSettings () {
+    let template = document.querySelector('#general-settings-template').content.cloneNode(true)
+    template = this.addMemorySettings(template)
+    this.element.querySelector('.application-meny').appendChild(template)
+  }
+
+  addMemorySettings (element) {
+    let template = document.querySelector('#memory-setting-template').content.cloneNode(true)
+    element.querySelector('.settings').appendChild(template)
+
+    return element
+  }
+
+  getClickedElement (target) {
+    let element
+
+    if (target.hasAttribute('value')) {
+      element = target
+    } else if (target.parentNode.hasAttribute('value')) {
+      element = target.parentNode
+    }
+    return element
+  }
+
+  clickOnSetting (event) {
+    let value
+
+    let element = this.getClickedElement(event.target)
+
+    if (element) {
+      value = element.getAttribute('value')
+      if (value === 'restart') {
+        this.clearContent()
+        this.game.removeEvent()
+        this.game = new Game(this.element.querySelector('.application-content'), this.boardSize[1], this.boardSize[0])
+        this.game.initialization()
+      } else {
+        this.startNewGameAfterSettingChange(value)
+      }
+    }
+  }
+
+  startNewGameAfterSettingChange (value) {
+    if (value) {
+      this.boardSize = value.split('x')
+    }
+
+    this.clearContent()
+    this.game.removeEvent()
+    this.game = new Game(this.element.querySelector('.application-content'), this.boardSize[1], this.boardSize[0])
+    this.game.initialization()
+  }
+
+  clearContent () {
+    let content = this.element.querySelector('.application-content')
+    while (content.lastChild) {
+      content.removeChild(content.lastChild)
+    }
+  }
   keyInput (key) {
     if (!this.markedCardForKey) {
       this.markedCardForKey = this.element.querySelector('.card')

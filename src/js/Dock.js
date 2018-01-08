@@ -40,6 +40,9 @@ class Dock {
         thisApp.initialization()
 
         break
+
+      case 'reset':
+        this.desktop.clearDesktop()
     }
 
     return thisApp

@@ -19,10 +19,8 @@
 					</div>
 				</div>
 				<div class="application-meny">
-					
 				</div>
 				<div class="application-content">
-
 				</div>
 			</div>
 		</template>
@@ -53,8 +51,8 @@
 			<div class="wrapper-div">
 				<div class="text">
 					<h1>Well done!</h1>
-					<h2>You finished the game in <span class="turns"></span> turns</h2>
-					<h2>in <span class="time"></span> seconds!</h2>
+					<h2>It took you <span class="turns"></span> turns</h2>
+					<h2> and <span class="time"></span> seconds to finish the game!</h2>
 				</div>
 			</div>
 		</template>
@@ -69,6 +67,29 @@
 			  <div class="output">
 				<img id="photo" alt="The screen capture will appear in this box."> 
 			  </div>
+		</template>
+
+		<template id="general-settings-template">¨
+			<div class="setting-wrapper">
+				<div class="settings">
+				</div>
+			</div>
+		</template>
+		
+		<template id="memory-setting-template">
+			<div class="memory-wrapper">
+				<div class="restart">
+					<p class="restartText" value="restart">Restart</p>
+				</div>
+				<div class="dropdown">
+					<p class="dropButton">Change size</p>
+					<div class="dropdown-content">
+						<span class="size" value="2x4">2x4</span>
+						<span class="size" value="3x4">3x4</span>
+						<span class="size" value="4x4">4x4</span>
+					</div>
+				</div>
+			</div>
 		</template>
 
     </head>
@@ -91,6 +112,10 @@
 					<li class='dock-item' value="filterify">
 						<i class="material-icons md-48 md-light">account_box</i>
 						<span class="title">Filterify</span>
+					</li>
+					<li class="dock-item" value="reset">
+						<i class="material-icons md-48 md-light">restore</i>
+						<span class="title">Reset</span>
 					</li>
 				</ul>
 
