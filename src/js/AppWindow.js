@@ -27,7 +27,6 @@ class AppWindow {
     main.appendChild(window)
 
     this.element = document.querySelector('#' + this.id)
-    // this.element.querySelector('.title').appendChild(document.createTextNode(this.title))
     this.element.querySelector('.title').textContent = this.title
     this.element.querySelector('.icon').textContent = this.icon
     console.log(this.element)

@@ -32,7 +32,7 @@ class TheMemoryApp extends AppWindow {
 
   addMemorySettings (element) {
     let template = document.querySelector('#memory-setting-template').content.cloneNode(true)
-    element.querySelector('.settings').appendChild(template)
+    element.querySelector('.settings-div').appendChild(template)
 
     return element
   }

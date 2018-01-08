@@ -45,7 +45,6 @@ body{
     cursor: pointer;
 }
 
-
 /****************************/
  /* Style for Basic window */
   /************************/
@@ -113,13 +112,6 @@ body{
 	opacity: 0.6;
 	cursor: move;
 }
-.setting-wrapper {
-    margin-top:10px;
-    display:inline-block;
-    width:500px;
-    height:25px;
-    background-color: #d2faf7;
-}
 
 /************************/
  /* Style for Chat App */
@@ -131,9 +123,10 @@ body{
 }
 .old-messages {
     min-height:300px;
+    max-height:300px;
     margin-top:5px;
     margin-bottom:5px;
-    background-color: #e3fbfc;
+    background-color: #e1ecec;
     color:black;
     font-size:20px;
     position: relative;
@@ -142,7 +135,6 @@ body{
 .chat .application-content {
     text-align: left;
     position: relative;
-    margin-top:50px;
 }
 .new-message-form{
     position: relative;
@@ -163,7 +155,44 @@ body{
     width:100px;
 }
 
-
+.chat-settings input {
+    display:block;
+    margin:0 auto;
+}
+.chat-settings label {
+    font-size:26px;
+}
+.application-content .setting-wrapper {
+    position: absolute;
+    top:0;
+    width:100%;
+    height:100%;
+    margin:0 auto;
+    text-align: center;
+    color:black;
+    background-color: #ffffff73;
+    z-index:2;
+}
+.application-content .settings-div {
+    margin:0 auto;
+    width:200px;
+}
+.chat .settings form {
+    margin:0 auto;
+}
+.application-meny .setting-wrapper {
+    text-align: center;
+    margin-top:10px;
+    width:400px;
+    height:25px;
+    background-color: #d2faf7;
+    cursor: pointer;
+}
+.chat p {
+    color:black;
+    padding-top:3px;
+    text-align: center;
+}
 /***************************/
  /* Style for Memory Game */
   /***********************/
@@ -171,6 +200,13 @@ body{
     display: table;
     width:500px;
     height:540px;
+}
+.memory .setting-wrapper {
+    margin-top:10px;
+    display:inline-block;
+    width:500px;
+    height:25px;
+    background-color: #d2faf7;
 }
 .memory .application-content {
     clear:both;
