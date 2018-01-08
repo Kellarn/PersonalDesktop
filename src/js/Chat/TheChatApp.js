@@ -14,9 +14,6 @@ class TheChatApp extends AppWindow {
 
   initialization () {
     this.print()
-    this.chat = new Chat(this.element, this.server, this.channel, this.username)
-    this.chat.initialization()
-    this.setFocus()
   }
 
   print () {
@@ -24,6 +21,37 @@ class TheChatApp extends AppWindow {
     this.element.classList.add('chat')
   }
 
+  addChatMenu (element) {
+    let template = document.querySelector('.chat-menu-template').content.cloneNode(true)
+    template.querySelector('input[name="username"]').setAttribute('value', this.username)
+    template.querySelector('input[name="channel"]').setAttribute('value', this.channel)
+
+    template.querySelector('button').addEventListener('click', this.saveMenuSettings.bind(this))
+
+    element.querySelector('.settings').appendChild(template)
+
+    return element
+  }
+
+  saveMenuSettings () {
+    if (this.chat) {
+      this.chat.socket.close()
+      this.chat.online = false
+    }
+
+    let form = this.element.querySelector('form')
+
+    this.username = form.querySelector('input[name="username"]').value
+    this.channel = form.querySelector('input[name="channel"]').value
+
+    if (this.username === '') {
+      this.username = 'User@SeabossOS'
+    }
+
+    this.chat = new Chat(this.element, this.server, this.channel, this.username)
+    this.chat.initialization()
+    this.setFocus()
+  }
   setFocus () {
     this.element.classList.remove('window-focus')
     this.element.focus()

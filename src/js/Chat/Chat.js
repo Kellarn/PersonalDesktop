@@ -9,6 +9,7 @@ class Chat {
     this.key = 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
     this.socket = undefined
     this.messageArray = []
+    this.online = false
   }
 
   async initialization () {
@@ -25,7 +26,6 @@ class Chat {
   print () {
     let template = document.querySelector('#chat-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
-    this.element.querySelector('.application-content').setAttribute('onselectstart', 'return true')
   }
 
   async connectToServer () {
