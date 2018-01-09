@@ -145,6 +145,7 @@ body{
     display:block;
     width:200px;
     resize: none;
+    overflow:hidden;
 }
 .send-button{
     display:block;
@@ -338,23 +339,81 @@ body{
       width:500px;
       height:500px;
   }
-  .camera{
+  #camera{
       margin-top:40px;
   }
-  .canvas{
-      height:30%;
-      width:30%;
+  .removeCamera {
+      display:none;
+  }
+  #canvas{
+      display:none;
+  }
+  .notShowing {
+      display: none;
+  }
+  #photo {
+    margin: 0 auto;
+    margin-top:40px;
+    width: 70%;
+    height: 70%;
+    display: block;
   }
   video {
     background: #222;
     margin: 0 auto;
     width: 70%;
     height: 70%;
+    display: block;
   }
   #startbutton {
-      float:right;
+      background-color: rgb(252, 186, 87);
+      border-radius: 10px;
+      margin-top:20px;
+      width:160px;
+      height:80px;
+  }
+  .filter-photo-wrapper{
+      margin:0 auto;
+      width:400px;
+      overflow-x:scroll;
+      overflow-y:hidden;
+  }
+  .filter-photo-wrapper ul {
+      width:790px;
+      margin-top:10px;
+      margin-left:25px;
+      list-style-type: none;
+  }
+  .filter-photo-wrapper li {
+      position: relative;
+      display:inline-block;
+      margin:5px;
+      color:black;
+
+  }
+  .filter-photo-wrapper #photo {
+      margin-top: 0;
       width:100px;
-      height:100px;
-      margin-top:100px;
-      margin-right:20px;
+      height:80px;
+  }
+  .filter-photo-wrapper p {
+      color:black;
+  }
+  .RedMoon {
+    filter:hue-rotate(90deg);
+  }
+  .GrayScale {
+    filter:grayscale(100%);
+  }
+  .Hardware {
+    filter:contrast(25%);
+  }
+  .YeOld{
+    filter: invert(20%) sepia(50%);
+  }
+  .Sickness {
+    filter:hue-rotate(180deg);
+  }
+  .IAmDrunk {
+    filter: hue-rotate(30deg) blur(2px);
   }

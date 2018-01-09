@@ -66,17 +66,33 @@
 		</template>
 
 		<template id="filterify-template">
-			<div class="camera">
+			<div id="camera">
 				<video id="video" autoplay playsinline>Video stream not available.</video>
-				<button id="startbutton">Take photo</button> 
-			  </div>
-			  <canvas id="canvas">
-			  </canvas>
-			  <div class="output">
-				<img id="photo" alt="The screen capture will appear in this box."> 
-			  </div>
+				<button id="startbutton">
+					<i class="material-icons">camera_alt</i>
+				</button>
+			</div>
+			<canvas id="canvas">
+			</canvas>
+			<div class="output">
+				<img id="photo" alt="The screen capture will appear in this box.">
+			</div>
 		</template>
 
+		<template id="filter-photo-template">
+			<div class="filter-photo-wrapper">
+				<ul>
+
+				</ul>
+			</div>
+		</template>
+
+		<template id="li-thumb-photo-template">
+			<li>
+				<p class="caption"></p>
+				<div class="thumb-container"></div>
+			</li>
+		</template>
 		<template id="general-settings-template">¨
 			<div class="setting-wrapper">
 				<div class="settings-div" value="settings">
