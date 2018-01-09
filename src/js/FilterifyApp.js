@@ -18,6 +18,10 @@ class FilterifyApp extends AppWindow {
     super.print(this)
     this.element.classList.add('filterify')
   }
+  close () {
+    this.filterify.close()
+    document.querySelector('#pwd').removeChild(this.element)
+  }
 }
 
 module.exports = FilterifyApp

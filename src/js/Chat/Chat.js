@@ -66,9 +66,8 @@ class Chat {
 
   newMessageFromServer (event) {
     let data = JSON.parse(event.data)
-    console.log(data)
 
-    if (data.type === 'message' || data.type === 'heartbeat') {
+    if (data.type === 'message') {
       if (!data.channel) {
         data.channel = ''
       }

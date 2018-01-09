@@ -15,13 +15,13 @@ class TheChatApp extends AppWindow {
 
   initialization () {
     this.print()
-    /* if (window.localStorage.getItem('userAndChannel')) {
-      this.clearMenu()
+    if (window.localStorage.getItem('userAndChannel')) {
+      this.clearContent()
       let object = JSON.parse(window.localStorage.getItem('userAndChannel'))
       this.username = object.username
       this.channel = object.channel
       this.connectToChat()
-    } */
+    }
 
     this.element.querySelector('.settings-text').addEventListener('click', this.clickOnMenu.bind(this))
   }
@@ -50,7 +50,6 @@ class TheChatApp extends AppWindow {
   clickOnMenu (event) {
     let target
     target = event.target.textContent
-    console.log(target)
     if (target === 'Settings') {
       this.menuSettings()
     } else {
@@ -66,7 +65,9 @@ class TheChatApp extends AppWindow {
       this.element.querySelector('.application-content').appendChild(template)
       this.isSettingsOpen = true
     } else {
-      this.clearContent()
+      let settings = document.querySelector('.application-content .setting-wrapper')
+      this.element.querySelector('.application-content').removeChild(settings)
+      this.isSettingsOpen = false
     }
   }
   addChatMenu (element) {
@@ -95,7 +96,7 @@ class TheChatApp extends AppWindow {
       this.chat.online = false
     }
 
-    let form = this.element.querySelector('form')
+    let form = this.element.querySelector('#form1')
 
     this.username = form.querySelector('input[name="username"]').value
     this.channel = form.querySelector('input[name="channel"]').value

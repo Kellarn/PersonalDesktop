@@ -5,6 +5,7 @@ class Filterify {
     this.element = element
     this.streaming = false
     this.classListArray = ['Normal', 'GrayScale', 'Hardware', 'RedMoon', 'YeOld', 'Sickness', 'IAmDrunk']
+    this.source = undefined
   }
   initialization () {
     this.print()
@@ -14,6 +15,13 @@ class Filterify {
   print () {
     let template = document.querySelector('#filterify-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
+  }
+
+  close () {
+    let tracks = Filterify.source.getTracks()
+    tracks.forEach(function (track) {
+      track.stop()
+    })
   }
 
   startUp () {
@@ -38,7 +46,6 @@ class Filterify {
       audio: false
     },
       function (stream) {
-        console.log(stream)
         if (navigator.mozGetUserMedia) {
           video.mozSrcObject = stream
         } else {
@@ -46,6 +53,7 @@ class Filterify {
           video.src = vendorURL.createObjectURL(stream)
         }
         streamSource = stream
+        Filterify.source = streamSource
         video.play()
       },
       function (err) {
@@ -66,6 +74,10 @@ class Filterify {
 
     startButton.addEventListener('click', function (event) {
       event.preventDefault()
+      takePhoto()
+    }, false)
+
+    function takePhoto () {
       let context = canvas.getContext('2d')
 
       if (width && height) {
@@ -111,22 +123,15 @@ class Filterify {
           })
         }
       } else {
-        this.clearPhoto()
+        let context = canvas.getContext('2d')
+
+        context.fillStyle = '#AAA'
+        context.fillRect(0, 0, canvas.width, canvas.width)
+
+        let data = canvas.toDataURL('image/png')
+        photo.setAttribute('src', data)
       }
-    }, false)
-  // this.clearPhoto()
-  }
-
-  clearPhoto () {
-    let photo = this.element.querySelector('#photo')
-    let canvas = this.element.querySelector('#canvas')
-    let context = canvas.getContext('2d')
-
-    context.fillStyle = '#AAA'
-    context.fillRect(0, 0, canvas.width, canvas.width)
-
-    let data = canvas.toDataURL('image/png')
-    photo.setAttribute('src', data)
+    }
   }
 }
 module.exports = Filterify
