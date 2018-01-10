@@ -33,10 +33,12 @@ class Filterify {
    * Function close the media stream from outside the module
    */
   close () {
-    let tracks = Filterify.source.getTracks()
-    tracks.forEach(function (track) {
-      track.stop()
-    })
+    if (Filterify.source) {
+      let tracks = Filterify.source.getTracks()
+      tracks.forEach(function (track) {
+        track.stop()
+      })
+    }
   }
 
   /**

@@ -1,5 +1,4 @@
 'use strict'
-const AppWindow = require('./AppWindow')
 const Chat = require('./Chat/TheChatApp')
 const Memory = require('./MemoryGame/theMemoryApp')
 const Filterify = require('./FilterifyApp')
@@ -24,13 +23,6 @@ class Dock {
     let thisApp
 
     switch (type) {
-      case 'window':
-
-        thisApp = new AppWindow(options)
-        thisApp.print()
-
-        break
-
       case 'chat':
 
         thisApp = new Chat(options)
