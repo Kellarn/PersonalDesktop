@@ -1,5 +1,13 @@
 'use strict'
 
+/**
+ * Constrcuctor for the chat
+ * @param element
+ * @param server
+ * @param channel
+ * @param username
+ * @constructor
+ */
 class Chat {
   constructor (element, server, channel, username) {
     this.element = element
@@ -12,6 +20,9 @@ class Chat {
     this.online = false
   }
 
+  /**
+ * Async function to init chat and connect to the web socket via other function
+ */
   async initialization () {
     this.messageArray = []
     this.print()
@@ -24,6 +35,10 @@ class Chat {
     this.element.querySelector('.message-text').addEventListener('input', this.controlInput.bind(this))
     this.element.querySelector('.message-text').focus()
   }
+
+  /**
+ * Function to print using template.
+ */
   print () {
     let template = document.querySelector('#chat-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
@@ -33,6 +48,9 @@ class Chat {
     this.element.querySelector('.application-meny .chat-wrapper').appendChild(connection)
   }
 
+  /**
+ * Async function to connect to websocket
+ */
   async connectToServer () {
     this.socket = await new window.WebSocket(this.server)
 
@@ -62,18 +80,28 @@ class Chat {
     }
   }
 
+  /**
+ * Function to set class if connection is online
+ */
   connectionOnline () {
     this.element.querySelector('.connection').classList.add('chat-online')
     let connection = this.element.querySelector('.connection')
     connection.textContent = 'Connected'
   }
 
+  /**
+ * Function to set class if connection is offline
+ */
   connectionOffline () {
     this.element.querySelector('.connection').classList.add('chat-offline')
     let connection = this.element.querySelector('.connection')
     connection.textContent = 'Not connected'
   }
 
+  /**
+ * Function to recive a new message from server and print and save this.
+ * @param event
+ */
   newMessageFromServer (event) {
     let data = JSON.parse(event.data)
 
@@ -89,6 +117,10 @@ class Chat {
     }
   }
 
+  /**
+ * Function to print new message
+ * @param data
+ */
   printNewMessage (data) {
     let oldMessageList = this.element.querySelector('.old-messages')
     let scrolled = false
@@ -113,6 +145,10 @@ class Chat {
 
     this.scrollToBottom(scrolled)
   }
+  /**
+ * Function to make sure that when a new message arrives that this is always shown if user hasn't scrolled himself.
+ * @param scrolled boolean
+ */
   scrollToBottom (scrolled) {
     let oldMessageList = this.element.querySelector('.old-messages')
 
@@ -120,6 +156,10 @@ class Chat {
       oldMessageList.scrollTop = oldMessageList.scrollHeight
     }
   }
+  /**
+ * Function to save a new message
+ * @param data object
+ */
   saveNewMessage (data) {
     let newMessage = {
       username: data.username,
@@ -134,6 +174,9 @@ class Chat {
     window.sessionStorage.setItem('Chat-at-' + this.channel, JSON.stringify(this.messageArray))
   }
 
+  /**
+ * Function to print all saved messages from storage.
+ */
   printSavedMessages () {
     if (window.sessionStorage.getItem('Chat-at-' + this.channel)) {
       let messages = JSON.parse(window.sessionStorage.getItem('Chat-at-' + this.channel))
@@ -145,6 +188,9 @@ class Chat {
     }
   }
 
+  /**
+ * Function to make sure that a message can only be sent if it has at least one character.
+ */
   controlInput (event) {
     let input = event.target.value
 

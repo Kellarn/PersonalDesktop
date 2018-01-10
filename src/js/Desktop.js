@@ -1,6 +1,12 @@
 'use strict'
 const Dock = require('./Dock')
 
+/**
+ * Constrcuctor for the Desktop
+ * @param options
+ * @constructor
+ */
+
 class Desktop {
   constructor () {
     this.windowArray = []
@@ -16,12 +22,19 @@ class Desktop {
     this.dock = new Dock(this)
   }
 
+   /**
+   * Function to initialize the dock
+   */
   init () {
     this.dock.init()
     document.addEventListener('mousedown', this.mouseDown.bind(this))
     document.addEventListener('keydown', this.keyPressed.bind(this))
   }
 
+   /**
+   * Function for mouse down event
+   * @param event
+   */
   mouseDown (event) {
     let element = event.target
 
@@ -47,6 +60,10 @@ class Desktop {
     }
   }
 
+   /**
+   * Function for mouse move event
+   * @param event
+   */
   mouseMove (event) {
     let newX = event.clientX - this.clickX
     let newY = event.clientY - this.clickY
@@ -66,6 +83,10 @@ class Desktop {
     }
   }
 
+   /**
+   * Function for mouse up event
+   * @param event
+   */
   mouseUp (event) {
     window.removeEventListener('mousemove', this.mouseMoveFunc)
     window.removeEventListener('mouseup', this.mouseUpFunc)
@@ -73,6 +94,10 @@ class Desktop {
     this.activeWindow.element.classList.remove('moving')
   }
 
+   /**
+   * Function to set focus and move application to the front.
+   * @param element
+   */
   setFocus (element) {
     element.focus()
 
@@ -85,6 +110,11 @@ class Desktop {
     }
   }
 
+   /**
+   * Function for getting the window button that was clicked.
+   * If X button was clicked, close application via closeWindow function
+   * @param event
+   */
   clickOnWindowButton (event) {
     let action = event.target.classList
     let element = event.target
@@ -112,6 +142,10 @@ class Desktop {
     }
   }
 
+   /**
+   * Function to close current application
+   * @param application id
+   */
   closeWindow (id) {
     let removed = false
 
@@ -124,6 +158,10 @@ class Desktop {
     }
   }
 
+   /**
+   * Function for key pressed
+   * @param event
+   */
   keyPressed (event) {
     if (document.activeElement.id === this.activeWindow.id) {
       if (this.activeWindow.activateKeyInput) {
@@ -134,6 +172,9 @@ class Desktop {
     }
   }
 
+   /**
+   * Function to clear desktop of all applications
+   */
   clearDesktop () {
     for (let i = 0; i < this.windowArray.length; i++) {
       this.windowArray[i].close()

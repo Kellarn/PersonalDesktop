@@ -1,5 +1,12 @@
 'use strict'
 
+/**
+ * Constrcuctor for a board for the memory game
+ * @param element
+ * @param x
+ * @param y
+ * @constructor
+ */
 class MemoryBoard {
   constructor (element, x, y) {
     this.x = x
@@ -9,6 +16,9 @@ class MemoryBoard {
     this.print()
   }
 
+  /**
+ * Function to print the board
+ */
   print () {
     let fragment = document.createDocumentFragment()
 

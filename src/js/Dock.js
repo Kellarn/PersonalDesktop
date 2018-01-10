@@ -4,11 +4,22 @@ const Chat = require('./Chat/TheChatApp')
 const Memory = require('./MemoryGame/theMemoryApp')
 const Filterify = require('./FilterifyApp')
 
+/**
+ * Constrcuctor for desktop dock where all the application icons are located.
+ * Calls all the applications and starts them
+ * @param desktop
+ * @constructor
+ */
 class Dock {
   constructor (desktop) {
     this.desktop = desktop
   }
 
+  /**
+   * Function create and init a new application.
+   * @param type
+   * @param options
+   */
   createApp (type, options) {
     let thisApp
 
@@ -48,6 +59,12 @@ class Dock {
     return thisApp
   }
 
+  /**
+   * Function to start the new app and add information and settings to it.
+   * @param type
+   * @param title
+   * @param icon
+   */
   startApp (type, title, icon) {
     let marginX = 10 * (this.desktop.offsetX)
     let marginY = 10 * (this.desktop.offsetY)
@@ -80,9 +97,18 @@ class Dock {
       this.checkOutOfBounds(thisApp)
     }
   }
+
+  /**
+   * Function to initialize an event listener.
+   */
   init () {
     document.querySelector('.dock').addEventListener('click', this.clickOnDock.bind(this), true)
   }
+
+  /**
+   * Function to to process what was clicked on the dock and start the corresponding app.
+   * @param event
+   */
   clickOnDock (event) {
     let value
     let title
@@ -99,6 +125,11 @@ class Dock {
     this.startApp(value, title, icon)
   }
 
+  /**
+   * Function to find the value of the clicked item in the dock.
+   * @param target
+   * @returns Element
+   */
   getClickedElement (target) {
     let element
 
@@ -110,6 +141,10 @@ class Dock {
     return element
   }
 
+  /**
+   * Function that checks if the newly created window is out of bounds.
+   * @param appWindow
+   */
   checkOutOfBounds (appWindow) {
     let windowWidth = window.innerWidth
     let windowHeight = window.innerHeight

@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Constrcuctor for the basic application window
+ * @param appOptions
+ * @constructor
+ */
 class AppWindow {
   constructor (appOptions) {
     this.id = appOptions.id
@@ -13,6 +18,9 @@ class AppWindow {
     this.activateKeyInput = appOptions.activateKeyInput
   }
 
+  /**
+ * Function to print and set attributs according to which type of application is opened
+ */
   print () {
     let template = document.querySelector('#window-template').content.cloneNode(true)
     let window = template.querySelector('.window-div')
@@ -31,6 +39,9 @@ class AppWindow {
     this.element.querySelector('.icon').textContent = this.icon
   }
 
+  /**
+   * Function to close and remove application
+   */
   close () {
     document.querySelector('#pwd').removeChild(this.element)
   }

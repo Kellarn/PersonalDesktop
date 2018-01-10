@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Constrcuctor for Filterify application content
+ * @param element
+ * @constructor
+ */
 class Filterify {
   constructor (element) {
     this.element = element
@@ -7,15 +12,26 @@ class Filterify {
     this.classListArray = ['Normal', 'GrayScale', 'Hardware', 'RedMoon', 'YeOld', 'Sickness', 'IAmDrunk']
     this.source = undefined
   }
+
+  /**
+   * Function to initialize the content
+   */
   initialization () {
     this.print()
     this.startUp()
   }
 
+  /**
+   * Function to print
+   */
   print () {
     let template = document.querySelector('#filterify-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
   }
+
+  /**
+   * Function close the media stream from outside the module
+   */
   close () {
     let tracks = Filterify.source.getTracks()
     tracks.forEach(function (track) {
@@ -23,6 +39,9 @@ class Filterify {
     })
   }
 
+  /**
+   * Main function for this module that handles the whole media stream and taking pictures.
+   */
   startUp () {
     let video = this.element.querySelector('#video')
     let canvas = this.element.querySelector('#canvas')

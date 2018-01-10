@@ -2,6 +2,12 @@
 const AppWindow = require('../AppWindow')
 const Game = require('./game')
 
+/**
+ * Constrcuctor for the memory application
+ * Extends the basic app window.
+ * @param options
+ * @constructor
+ */
 class TheMemoryApp extends AppWindow {
   constructor (options) {
     super(options)
@@ -11,6 +17,9 @@ class TheMemoryApp extends AppWindow {
     this.markedCardForKey = undefined
   }
 
+  /**
+   * Init the application and add settings
+   */
   initialization () {
     this.print()
     this.addGeneralSettings()
@@ -19,17 +28,29 @@ class TheMemoryApp extends AppWindow {
     this.game.initialization()
     this.element.querySelector('.memory-wrapper').addEventListener('click', this.clickOnSetting.bind(this), true)
   }
+
+  /**
+   * Print the application
+   */
   print () {
     super.print(this)
     this.element.classList.add('memory')
   }
 
+  /**
+   * Function to add a general settings template to the app.
+   */
   addGeneralSettings () {
     let template = document.querySelector('#general-settings-template').content.cloneNode(true)
     template = this.addMemorySettings(template)
     this.element.querySelector('.application-meny').appendChild(template)
   }
 
+  /**
+   * Add specific memory settings template
+   * @param element
+   * @returns element
+   */
   addMemorySettings (element) {
     let template = document.querySelector('#memory-setting-template').content.cloneNode(true)
     element.querySelector('.settings-div').appendChild(template)
@@ -37,6 +58,11 @@ class TheMemoryApp extends AppWindow {
     return element
   }
 
+  /**
+   * Function to get the clicked element and return it
+   * @param target
+   * @returns element
+   */
   getClickedElement (target) {
     let element
 
@@ -48,6 +74,10 @@ class TheMemoryApp extends AppWindow {
     return element
   }
 
+  /**
+   * Function to perform the correct action after click on settings
+   * @param event
+   */
   clickOnSetting (event) {
     let value
 
@@ -66,6 +96,10 @@ class TheMemoryApp extends AppWindow {
     }
   }
 
+  /**
+   * Function to start a new game if the settings were changed.
+   * @param value
+   */
   startNewGameAfterSettingChange (value) {
     if (value) {
       this.boardSize = value.split('x')
@@ -77,12 +111,20 @@ class TheMemoryApp extends AppWindow {
     this.game.initialization()
   }
 
+  /**
+   * Function to clear content
+   */
   clearContent () {
     let content = this.element.querySelector('.application-content')
     while (content.lastChild) {
       content.removeChild(content.lastChild)
     }
   }
+
+  /**
+   * Function that controls what to do if a key is pressed
+   * @param key
+   */
   keyInput (key) {
     if (!this.markedCardForKey) {
       this.markedCardForKey = this.element.querySelector('.card')
@@ -115,6 +157,9 @@ class TheMemoryApp extends AppWindow {
     }
   }
 
+  /**
+   * Function for what happens if right key is pressed
+   */
   keyRight () {
     if (this.markedCardForKey.nextElementSibling) {
       this.markedCardForKey = this.markedCardForKey.nextElementSibling
@@ -124,6 +169,10 @@ class TheMemoryApp extends AppWindow {
       this.markedCardForKey = this.element.querySelector('.card')
     }
   }
+
+  /**
+   * Function for what happens if left key is pressed
+   */
   keyLeft () {
     if (this.markedCardForKey.previousElementSibling) {
       this.markedCardForKey = this.markedCardForKey.previousElementSibling
@@ -135,6 +184,10 @@ class TheMemoryApp extends AppWindow {
       this.markedCardForKey = lastRow.lastElementChild
     }
   }
+
+  /**
+   * Function for what happens if down key is pressed
+   */
   keyDown () {
     let nextRow
 
@@ -149,6 +202,9 @@ class TheMemoryApp extends AppWindow {
     this.markedCardForKey = this.element.querySelector('.card-' + nextRow + correctCardAtNextRow)
   }
 
+  /**
+   * Function for what happens if up key is pressed
+   */
   keyUp () {
     let nextRow
     if (this.markedCardForKey.parentNode.previousElementSibling) {

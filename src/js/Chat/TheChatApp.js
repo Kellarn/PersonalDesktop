@@ -2,6 +2,13 @@
 const AppWindow = require('../AppWindow')
 const Chat = require('./Chat')
 
+/**
+ * Constrcuctor for the chat application
+ * Extends the AppWindow class
+ * @param options
+ * @constructor
+ */
+
 class TheChatApp extends AppWindow {
   constructor (options) {
     super(options)
@@ -13,6 +20,9 @@ class TheChatApp extends AppWindow {
     this.isSettingsOpen = false
   }
 
+  /**
+ * Function to init the application
+ */
   initialization () {
     this.print()
     if (window.localStorage.getItem('userAndChannel')) {
@@ -25,16 +35,27 @@ class TheChatApp extends AppWindow {
 
     this.element.querySelector('.settings-text').addEventListener('click', this.clickOnMenu.bind(this))
   }
+   /**
+ * Function to close chat socket and remove the application
+ */
   close () {
     if (this.chat) {
       this.chat.socket.close()
     }
     document.querySelector('#pwd').removeChild(this.element)
   }
+
+   /**
+ * Function to connect to the chat via the chat module
+ */
   connectToChat () {
     this.chat = new Chat(this.element, this.server, this.channel, this.username)
     this.chat.initialization()
   }
+
+   /**
+ * Function print basic window and add specifics
+ */
   print () {
     super.print(this)
     this.element.classList.add('chat')
@@ -46,6 +67,10 @@ class TheChatApp extends AppWindow {
     this.menuSettings()
   }
 
+   /**
+ * Function to handle clicks on the menu
+ * @param event
+ */
   clickOnMenu (event) {
     let target
     target = event.target.textContent
@@ -57,6 +82,9 @@ class TheChatApp extends AppWindow {
     }
   }
 
+   /**
+ * Function to add menu settings via templates
+ */
   menuSettings () {
     if (!this.isSettingsOpen) {
       let template = document.querySelector('#general-settings-template').content.cloneNode(true)
@@ -70,6 +98,11 @@ class TheChatApp extends AppWindow {
       this.isSettingsOpen = false
     }
   }
+
+   /**
+ * Function to add settings for username and channel that the user writes in.
+ * @param element
+ */
   addChatMenu (element) {
     let template = document.querySelector('#chat-menu-template').content.cloneNode(true)
     template.querySelector('input[name="username"]').setAttribute('value', this.username)
@@ -82,6 +115,9 @@ class TheChatApp extends AppWindow {
     return element
   }
 
+   /**
+ * Function to clear the content
+ */
   clearContent () {
     let content = this.element.querySelector('.application-content')
     while (content.lastChild) {
@@ -90,6 +126,9 @@ class TheChatApp extends AppWindow {
     this.isSettingsOpen = false
   }
 
+   /**
+ * Function to save menu settings and starting a new chat with these settings.
+ */
   saveMenuSettings () {
     if (this.chat) {
       this.chat.socket.close()

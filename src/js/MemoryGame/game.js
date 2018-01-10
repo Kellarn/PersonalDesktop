@@ -4,6 +4,14 @@ const Card = require('./card')
 const Board = require('./board')
 const Timer = require('./timer')
 
+/**
+ * Constrcuctor for the memory game
+
+ * @param element
+ * @param x
+ * @param y
+ * @constructor
+ */
 class MemoryGame {
   constructor (element, x, y) {
     this.element = element
@@ -26,6 +34,9 @@ class MemoryGame {
     this.gameTimer = 0
   }
 
+/**
+ * Function to init the basics
+ */
   initialization () {
     let i = 0
 
@@ -47,6 +58,9 @@ class MemoryGame {
     }
   }
 
+/**
+ * Function to shuffle the cards that will be used in the game.
+ */
   shuffleCards () {
     let temp
     let random
@@ -58,6 +72,10 @@ class MemoryGame {
     }
   }
 
+/**
+ * Function to turn a card
+ * @param element
+ */
   turnCard (element) {
     if (this.flippedCards.length < 2 && !element.classList.contains('disabled')) {
       if (element.classList.contains('card')) {
@@ -78,6 +96,9 @@ class MemoryGame {
     }
   }
 
+  /**
+ * Function to check if the two turned cards are the same.
+ */
   checkIfSame () {
     this.turns += 1
     if (this.flippedCards[0].cardNumber === this.flippedCards[1].cardNumber) {
@@ -100,6 +121,9 @@ class MemoryGame {
     }
   }
 
+  /**
+ * Function that turns back the cards if they were not the same.
+ */
   turnBackCard () {
     let tempCard
 
@@ -111,18 +135,31 @@ class MemoryGame {
     this.flippedCards = []
   }
 
+  /**
+ * Function to see what should be done when card is clicked
+ * @param event
+ */
   clickOnCard (event) {
     this.turnCard(event.target)
   }
 
+  /**
+ * Helper function to add click event
+ */
   addEvent () {
     this.element.addEventListener('click', this.clickFunction)
   }
 
+   /**
+ * Helper function to remove click event
+ */
   removeEvent () {
     this.element.removeEventListener('click', this.clickFunction)
   }
 
+   /**
+ * Function for what to do when game is finished
+ */
   gameFinished () {
     this.removeEvent()
     this.gameTimer = this.timer.stopTimer()
