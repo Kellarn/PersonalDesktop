@@ -13,15 +13,16 @@ class Chat {
   }
 
   async initialization () {
+    this.messageArray = []
     this.print()
+    this.printSavedMessages()
     await this.connectToServer()
 
     this.socket.addEventListener('message', this.newMessageFromServer.bind(this))
     this.element.querySelector('.send-button').addEventListener('click', this.submitMessage.bind(this))
-    this.element.querySelector('form').addEventListener('focusout', this.toggleFocus.bind(this))
-    this.element.querySelector('.message-text').addEventListener('focus', this.toggleFocus.bind(this))
     this.element.querySelector('form').addEventListener('submit', this.submitMessage.bind(this))
     this.element.querySelector('.message-text').addEventListener('input', this.controlInput.bind(this))
+    this.element.querySelector('.message-text').focus()
   }
   print () {
     let template = document.querySelector('#chat-template').content.cloneNode(true)
@@ -53,6 +54,7 @@ class Chat {
       await this.socket.send(JSON.stringify(msg))
       this.element.querySelector('.send-button').setAttribute('disabled', 'disabled')
       this.element.querySelector('form').reset()
+      this.element.querySelector('form .message-text').focus()
     }
   }
 
@@ -74,7 +76,7 @@ class Chat {
 
       if (data.channel === this.channel) {
         this.printNewMessage(data)
-        // this.saveNewMessage(data)
+        this.saveNewMessage(data)
       }
     }
   }
@@ -106,10 +108,28 @@ class Chat {
     }
   }
   saveNewMessage (data) {
-
+    let newMessage = {
+      username: data.username,
+      data: data.data
+    }
+    if (this.messageArray.length >= 20) {
+      this.messageArray.splice(0, 1)
+      this.messageArray.push(newMessage)
+    } else {
+      this.messageArray.push(newMessage)
+    }
+    window.sessionStorage.setItem('Chat-at-' + this.channel, JSON.stringify(this.messageArray))
   }
-  toggleFocus () {
-    this.element.classList.toggle('window-focus')
+
+  printSavedMessages () {
+    if (window.sessionStorage.getItem('Chat-at-' + this.channel)) {
+      let messages = JSON.parse(window.sessionStorage.getItem('Chat-at-' + this.channel))
+      this.messageArray = messages
+
+      for (let i = 0; i < this.messageArray.length; i++) {
+        this.printNewMessage(this.messageArray[i])
+      }
+    }
   }
 
   controlInput (event) {

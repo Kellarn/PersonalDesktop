@@ -34,7 +34,6 @@ class TheChatApp extends AppWindow {
   connectToChat () {
     this.chat = new Chat(this.element, this.server, this.channel, this.username)
     this.chat.initialization()
-    this.setFocus()
   }
   print () {
     super.print(this)
@@ -50,6 +49,7 @@ class TheChatApp extends AppWindow {
   clickOnMenu (event) {
     let target
     target = event.target.textContent
+
     if (target === 'Settings') {
       this.menuSettings()
     } else {
@@ -110,10 +110,6 @@ class TheChatApp extends AppWindow {
 
     let infoObject = {username: this.username, channel: this.channel}
     window.localStorage.setItem('userAndChannel', JSON.stringify(infoObject))
-  }
-  setFocus () {
-    this.element.classList.remove('window-focus')
-    this.element.focus()
   }
 }
 

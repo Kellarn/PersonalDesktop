@@ -58,7 +58,6 @@ class Desktop {
     let windowHeight = window.innerHeight
 
     if (newMiddleX < windowWidth && newMiddleX > 0 && newMiddleY < windowHeight && newY > 0) {
-      console.log('Moving')
       this.activeWindow.x = event.clientX - this.clickX
       this.activeWindow.y = event.clientY - this.clickY
 
