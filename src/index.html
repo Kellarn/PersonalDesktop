@@ -66,7 +66,7 @@
 
 		<template id="filterify-template">
 			<div id="camera">
-				<video id="video" autoplay playsinline>Video stream not available.</video>
+				<video id="video" class="" autoplay playsinline>Video stream not available.</video>
 				<button id="startbutton">
 					<i class="material-icons">camera_alt</i>
 				</button>
@@ -74,7 +74,7 @@
 			<canvas id="canvas">
 			</canvas>
 			<div class="output">
-				<img id="photo" alt="The screen capture will appear in this box.">
+				<img id="photo" class="notShowing"alt="The screen capture will appear in this box.">
 			</div>
 		</template>
 
@@ -118,6 +118,7 @@
 		<template id="chat-setting-template">
 			<div class="chat-wrapper">
 				<div class="chat-settings">
+						<p class="connection"> </p>
 					<p class="settings-text" value="settings">Settings</p>
 				</div>
 			</div>

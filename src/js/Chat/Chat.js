@@ -27,6 +27,10 @@ class Chat {
   print () {
     let template = document.querySelector('#chat-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
+
+    let connection = this.element.querySelector('.connection')
+    connection.textContent = 'Not connected'
+    this.element.querySelector('.application-meny .chat-wrapper').appendChild(connection)
   }
 
   async connectToServer () {
@@ -59,11 +63,15 @@ class Chat {
   }
 
   connectionOnline () {
-    this.element.querySelector('.window-top').classList.add('chat-online')
+    this.element.querySelector('.connection').classList.add('chat-online')
+    let connection = this.element.querySelector('.connection')
+    connection.textContent = 'Connected'
   }
 
   connectionOffline () {
-    this.element.querySelector('.window-top').classList.add('chat-offline')
+    this.element.querySelector('.connection').classList.add('chat-offline')
+    let connection = this.element.querySelector('.connection')
+    connection.textContent = 'Not connected'
   }
 
   newMessageFromServer (event) {
@@ -93,8 +101,13 @@ class Chat {
     let username = document.createTextNode(data.username + ': ')
     let message = document.createTextNode(data.data)
 
+    if (data.username === this.username) {
+      newMessageTemplate.querySelector('li .old-message').classList.add('chat-me')
+    } else {
+      newMessageTemplate.querySelector('li .old-message').classList.add('chat-other')
+      newMessageTemplate.querySelector('.message-username').appendChild(username)
+    }
     newMessageTemplate.querySelector('.message-message').appendChild(message)
-    newMessageTemplate.querySelector('.message-username').appendChild(username)
 
     this.element.querySelector('.old-messages ul').appendChild(newMessageTemplate)
 

@@ -16,7 +16,6 @@ class Filterify {
     let template = document.querySelector('#filterify-template').content.cloneNode(true)
     this.element.querySelector('.application-content').appendChild(template)
   }
-
   close () {
     let tracks = Filterify.source.getTracks()
     tracks.forEach(function (track) {
@@ -72,7 +71,7 @@ class Filterify {
       }
     })
 
-    startButton.addEventListener('click', function (event) {
+    startButton.addEventListener('click', (event) => {
       event.preventDefault()
       takePhoto()
     }, false)
@@ -106,6 +105,7 @@ class Filterify {
         for (let track of streamSource.getTracks()) {
           track.stop()
         }
+
         let bigImage = document.querySelector('.output #photo')
         let list = document.querySelector('.filter-photo-wrapper ul')
         let items = list.querySelectorAll('li')

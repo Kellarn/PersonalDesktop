@@ -29,8 +29,9 @@ body{
     background-color:#358899;
 }
 .dock-item .title{
-    display:none;
+    display: none;
 }
+
 #dock-list{
     text-align: center;
     list-style-type: none;
@@ -105,6 +106,7 @@ body{
 }
 .material-icons.md-48 { font-size: 48px; }
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-dark { color: rgba(0,0,0,1)}
 .window-buttons .close-button .material-icons:hover {
     color:red;
 }
@@ -150,12 +152,28 @@ body{
 .send-button{
     display:block;
     margin:0 auto;
-    margin-top:5px;
+    margin-top:7px;
     text-align:center;
-    height:30px;
-    width:100px;
+    height:40px;
+    width:150px;
+    background-color:  rgb(252, 186, 87);
+    border-radius: 5px;
 }
-
+.application-meny .chat-settings {
+    width:auto;
+}
+.application-meny .connection {
+    text-align: left;
+    margin-left:5px;
+    width:auto;
+    margin-top:-19px;
+}
+.chat-offline {
+    color:red;
+}
+.chat-online {
+    color:green;
+}
 .chat-settings input {
     display:block;
     margin:0 auto;
@@ -171,10 +189,11 @@ body{
     margin:0 auto;
     text-align: center;
     color:black;
-    background-color: #ffffff73;
+    background-color: #b5eaffe0;
     z-index:2;
 }
 .application-content .settings-div {
+    padding-top:50px;
     margin:0 auto;
     width:200px;
 }
@@ -189,14 +208,46 @@ body{
     background-color: #d2faf7;
     cursor: pointer;
 }
-.chat p {
+.settings-text {
     color:black;
     padding-top:3px;
     text-align: center;
-}
-.settings-text {
     margin:0 auto;
     width:50px;
+}
+.old-messages ul li{
+    width:360px;
+    height:40px;
+    display:block;
+}
+.chat-me {
+    width:auto;
+    float:right;
+    border:3px solid blue;
+    border-radius: 5px;
+    padding-left:5px;
+    padding-right:5px;
+}
+.chat-other {
+    float:left;
+    width:auto;
+    border:3px solid green;
+    border-radius: 5px;
+    padding-left:5px;
+    padding-right:5px;
+}
+.settings-text {
+    padding-left:10px;
+    padding-right:10px;
+}
+.settings-text:hover {
+    background-color: #a0f5ef;
+    cursor: pointer;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.connection p {
+    background-color: red;
+    color:black;
 }
 /***************************/
  /* Style for Memory Game */
@@ -340,6 +391,7 @@ body{
  /* Style for Filiterify App */
   /**************************/
   .filterify {
+      background-color: #d2f8f6;
       width:500px;
       height:500px;
   }
@@ -360,7 +412,9 @@ body{
     margin-top:40px;
     width: 70%;
     height: 70%;
-    display: block;
+  }
+  .thumb-container #photo {
+      display:block;
   }
   video {
     background: #222;
@@ -420,4 +474,12 @@ body{
   }
   .IAmDrunk {
     filter: hue-rotate(30deg) blur(2px);
+  }
+  .newPhoto {
+      float:left;
+      margin-left:30%
+  }
+  .savePhoto {
+      float:right;
+      margin-right:30%
   }
